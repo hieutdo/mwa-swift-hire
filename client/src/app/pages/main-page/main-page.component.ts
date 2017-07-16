@@ -1,36 +1,18 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component } from '@angular/core';
+import { TdMediaService } from '@covalent/core';
 
 @Component({
   selector: 'app-main-page',
   templateUrl: './main-page.component.html',
   styleUrls: ['./main-page.component.scss']
 })
-export class MainPageComponent {
-  routes: Object[] = [{
-    icon: 'dashboard',
-    route: '.',
-    title: 'Dashboard',
-  }, {
-    icon: 'my_library_books',
-    route: '.',
-    title: 'Manage Jobs',
-  }, {
-    icon: 'people',
-    route: '.',
-    title: 'Candidates',
-  }];
+export class MainPageComponent implements AfterViewInit {
 
-  usermenu: Object[] = [{
-    icon: 'swap_horiz',
-    route: '.',
-    title: 'Switch account',
-  }, {
-    icon: 'tune',
-    route: '.',
-    title: 'Account settings',
-  }, {
-    icon: 'exit_to_app',
-    route: '.',
-    title: 'Sign out',
-  }];
+  constructor(private changeDetectorRef: ChangeDetectorRef,
+              public media: TdMediaService) {}
+
+  ngAfterViewInit(): void {
+    this.media.broadcast();
+    this.changeDetectorRef.detectChanges();
+  }
 }

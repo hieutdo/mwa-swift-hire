@@ -1,48 +1,30 @@
-<td-layout-nav logo="assets:covalent-mark"
-               toolbarTitle="SwiftHire - Job Board"
-               navigationRoute="/">
-  <div flex
-       layout="row"
-       td-toolbar-content
-       layout-align="center center">
+<md-toolbar>
+  <div layout="row" layout-align="start center" flex>
+    <button md-icon-button tdLayoutManageListOpen [hideWhenOpened]="true">
+      <md-icon>arrow_back</md-icon>
+    </button>
+    <span>Dashboard</span>
     <span flex></span>
-    <a md-icon-button
-       mdTooltip="Github"
-       href="https://github.com/teradata/covalent"
-       target="_blank">
-      <md-icon svgIcon="assets:github"></md-icon>
-    </a>
+    <button md-icon-button>
+      <md-icon>settings</md-icon>
+    </button>
   </div>
-  <button md-icon-button
-          td-menu-button
-          tdLayoutToggle>
-    <md-icon>menu</md-icon>
-  </button>
-
-  <div layout-gt-sm="row" tdMediaToggle="gt-xs" [mediaClasses]="['push-sm']">
-    <div flex-gt-sm="60">
-      <md-card>
-        <md-card-title>Job Offers</md-card-title>
-        <md-card-subtitle>We found 23 jobs for you</md-card-subtitle>
-        <md-divider></md-divider>
-      </md-card>
-    </div>
-    <div flex-gt-sm="40">
-      <md-card>
-        <md-card-title>Top Performers</md-card-title>
-        <md-card-subtitle>Top 10 performers this week</md-card-subtitle>
-        <md-divider></md-divider>
-      </md-card>
-    </div>
+</md-toolbar>
+<div layout-gt-sm="row" tdMediaToggle="gt-xs" [mediaClasses]="['push-sm']">
+  <div flex-gt-sm="100">
+    <md-card>
+      <md-card-title>Job Offers</md-card-title>
+      <md-card-subtitle>We found 10 nearest jobs for you</md-card-subtitle>
+      <md-divider></md-divider>
+      <md-card-content>
+        display jobs here
+      </md-card-content>
+      <md-divider></md-divider>
+      <md-card-actions>
+        <a md-button color="accent" class="text-upper" [routerLink]="['/']">
+          <span>View More</span>
+        </a>
+      </md-card-actions>
+    </md-card>
   </div>
-
-  <td-layout-footer>
-    <div layout="row"
-         layout-align="start center">
-      <span class="md-caption">Copyright &copy; 2017 MUM. All rights reserved.</span>
-      <span flex></span>
-    </div>
-  </td-layout-footer>
-</td-layout-nav>
-
-
+</div>
