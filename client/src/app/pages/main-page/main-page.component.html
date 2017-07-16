@@ -1,0 +1,26 @@
+<td-layout>
+  <td-navigation-drawer flex
+                        sidenavTitle="Currently logged in as"
+                        name="John Doe"
+                        email="john.doe@gmail.com">
+    <md-nav-list>
+      <a *ngFor="let route of routes"
+         [routerLink]="[route.route]"
+         md-list-item>
+        <md-icon>{{ route.icon }}</md-icon>
+        {{ route.title }}
+      </a>
+    </md-nav-list>
+    <div td-navigation-drawer-menu>
+      <md-nav-list>
+        <a *ngFor="let item of usermenu"
+           md-list-item>
+          <md-icon>{{ item.icon }}</md-icon>
+          {{ item.title }}
+        </a>
+      </md-nav-list>
+    </div>
+  </td-navigation-drawer>
+
+  <router-outlet></router-outlet>
+</td-layout>
