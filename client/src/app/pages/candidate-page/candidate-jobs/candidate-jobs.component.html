@@ -1,0 +1,61 @@
+<div layout-gt-sm="row" tdMediaToggle="gt-xs" [mediaClasses]="['push-sm']">
+  <div flex-gt-sm="70">
+    <md-card>
+      <md-card-title><i class="material-icons md-48">face</i>Job Title</md-card-title>
+      <md-card-subtitle>Oracle</md-card-subtitle>
+      <md-divider></md-divider>
+      <md-card-content>
+        We generally give 2-5 day lab-based trainings to 8-12 person teams of developers. Comfort in front of a group of developers (you'll be the teacher)....
+      </md-card-content>
+      <md-divider></md-divider>
+      <md-card-actions>
+        <a md-button color="accent" class="text-upper" [routerLink]="['/']">
+          <span>View Detail</span>
+        </a>
+      </md-card-actions>
+    </md-card>
+    <md-card>
+      <md-card-title><i class="material-icons md-48">face</i>Javascript Engineer</md-card-title>
+      <md-card-subtitle>We found 10000000000 nearest jobs for you</md-card-subtitle>
+      <md-divider></md-divider>
+      <md-card-content>
+        display jobs here
+      </md-card-content>
+      <md-divider></md-divider>
+      <md-card-actions>
+        <a md-button color="accent" class="text-upper" [routerLink]="['/']">
+          <span>View More</span>
+        </a>
+      </md-card-actions>
+    </md-card>
+  </div>
+  <div flex-gt-sm="30">
+    <md-card>
+      <md-card-content>
+        <h2 class="example-h2"></h2>
+        <md-card-content>
+        <td-search-box backIcon="arrow_back"
+                       placeholder="Search Job"
+                       showUnderline="true">
+        </td-search-box>
+        </md-card-content>
+        <h2 class="example-h2">Job Status</h2>
+        <section class="example-section">
+
+          <md-checkbox class="example-margin" [(ngModel)]="checked">Current</md-checkbox>
+          <md-checkbox class="example-margin" [(ngModel)]="indeterminate">Completed</md-checkbox>
+          <md-slider class="example-margin" min="0" max="10000" step="20" value="500" vertical="true"></md-slider>
+        </section>
+      </md-card-content>
+      <md-divider></md-divider>
+      <md-card-content>
+        <h2 class="example-h2">Price</h2>
+        <section class="example-section">
+
+        </section>
+      </md-card-content>
+      <md-divider></md-divider>
+    </md-card>
+
+  </div>
+</div>
