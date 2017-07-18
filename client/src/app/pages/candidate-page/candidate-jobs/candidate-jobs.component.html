@@ -30,32 +30,68 @@
     </md-card>
   </div>
   <div flex-gt-sm="30">
+    <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)">
     <md-card>
       <md-card-content>
         <h2 class="example-h2"></h2>
         <md-card-content>
-        <td-search-box backIcon="arrow_back"
-                       placeholder="Search Job"
-                       showUnderline="true">
-        </td-search-box>
+          <td-search-input placeholder="Search here"
+                           [showUnderline]="true"
+                           [debounce]="500"
+                           (searchDebounce)="searchInputTerm = $event"
+                           (search)="searchInputTerm = $event"
+                           (clear)="searchInputTerm = ''">
+          </td-search-input>
         </md-card-content>
         <h2 class="example-h2">Job Status</h2>
         <section class="example-section">
 
           <md-checkbox class="example-margin" [(ngModel)]="checked">Current</md-checkbox>
           <md-checkbox class="example-margin" [(ngModel)]="indeterminate">Completed</md-checkbox>
-          <md-slider class="example-margin" min="0" max="10000" step="20" value="500" vertical="true"></md-slider>
+
         </section>
       </md-card-content>
+
       <md-divider></md-divider>
       <md-card-content>
         <h2 class="example-h2">Price</h2>
         <section class="example-section">
-
+          <md-slider min="1" max="5" step="0.5" value="1.5"></md-slider>
+          <md-slider
+            class="example-margin"
+            [(ngModel)]="disabled"
+            [(ngModel)]="invert"
+            [(ngModel)]="max"
+            [(ngModel)]="min"
+            [(ngModel)]="step"
+            [(ngModel)]="thumbLabel"
+            [(ngModel)]="tickInterval"
+            [(ngModel)]="value"
+            [(ngModel)]="vertical"
+            ngDefaultControl>
+          </md-slider>
+        </section>
+      </md-card-content>
+      <md-divider></md-divider>
+      <md-card-content>
+        <h2 class="example-h2">Coordinate</h2>
+        <section class="example-section">
+          <p>
+            <md-input-container class="example-full-width" flex>
+              <textarea mdInput placeholder="Latitude"></textarea>
+            </md-input-container>
+          </p>
+          <p>
+            <md-input-container class="example-full-width">
+              <textarea mdInput placeholder="Longtitude"></textarea>
+            </md-input-container>
+          </p>
         </section>
       </md-card-content>
       <md-divider></md-divider>
     </md-card>
 
+
+    </form>
   </div>
 </div>

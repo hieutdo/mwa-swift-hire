@@ -1,3 +1,69 @@
-<p>
-  candidate-resume works!
-</p>
+<div layout="row">
+  <md-input-container tdFileDrop
+
+                      (fileDrop)="files = $event"
+                      (click)="fileInput.inputElement.click()"
+                      (keyup.enter)="fileInput.inputElement.click()"
+                      (keyup.delete)="fileInput.clear()"
+                      (keyup.backspace)="fileInput.clear()"
+                      flex>
+    <input mdInput
+           placeholder="upload your resume"
+           [value]="files?.length ? (files?.length + ' files') : files?.name"
+           [disabled]="disabled"
+           readonly/>
+  </md-input-container>
+  <button md-icon-button *ngIf="files" (click)="fileInput.clear()" (keyup.enter)="fileInput.clear()">
+    <md-icon>cancel</md-icon>
+  </button>
+  <td-file-input class="push-left-sm push-right-sm" #fileInput [(ngModel)]="files" multiple [disabled]="disabled">
+    <md-icon>folder</md-icon>
+    <span class="text-upper">Browse...</span>
+  </td-file-input>
+  <span>
+    <button md-raised-button color="accent" [disabled]="!files" class="text-upper">Submit</button>
+  </span>
+</div>
+
+<td-steps>
+  <td-step #step1 label="Basic Usage" sublabel="Toggle between active and inactive and emit events." [active]="true" [disabled]="disabled" (activated)="activeStep1Event()" (deactivated)="deactiveStep1Event()">
+    <ng-template td-step-label><span>Basic Information</span></ng-template>
+    <md-input-container>
+      <input mdInput placeholder="Last Name" value="">
+    </md-input-container>
+    <md-input-container>
+      <input mdInput placeholder="First Name" value="">
+    </md-input-container>
+    <md-input-container>
+      <span mdPrefix>+1 &nbsp;</span>
+      <input type="tel" mdInput placeholder="Telephone">
+      <md-icon mdSuffix>mode_edit</md-icon>
+    </md-input-container>
+    <md-input-container>
+      <input type="email" mdInput placeholder="E-mail">
+      <md-icon mdSuffix>mode_edit</md-icon>
+    </md-input-container>
+  </td-step>
+  <td-step #step2 label="Education & Working" sublabel="" [state]="stateStep2" [disabled]="disabled" disableRipple>
+    <p>
+      <md-input-container class="example-full-width" flex>
+        <textarea mdInput placeholder="Education"></textarea>
+      </md-input-container>
+    </p>
+    <p>
+      <md-input-container class="example-full-width">
+        <textarea mdInput placeholder="Working"></textarea>
+      </md-input-container>
+    </p>
+  </td-step>
+  <td-step #step3 label="Skills & Technical stac"sublabel="" [state]="stateStep3" [disabled]="disabled">
+    Mark this step complete and get a summary
+    <ng-template td-step-summary>
+        <tag-input [(ngModel)]='techs'></tag-input>
+    </ng-template>
+    <ng-template td-step-actions>
+      <button md-raised-button color="primary" (click)="toggleCompleteStep3()" class="text-upper">Complete</button>
+      <button md-button (click)="step3.active = false" class="text-upper">Cancel</button>
+    </ng-template>
+  </td-step>
+</td-steps>
