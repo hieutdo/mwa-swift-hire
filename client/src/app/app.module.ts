@@ -1,9 +1,11 @@
 import { NgModule, Component } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Http, HttpModule, RequestOptions } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { TagInputModule } from 'ngx-chips';
 import { AuthConfig, AuthHttp } from 'angular2-jwt';
 import {
   MdButtonModule,
@@ -14,15 +16,16 @@ import {
   MdListModule,
   MdMenuModule,
   MdSelectModule,
+  MdSliderModule,
   MdSidenavModule,
   MdSlideToggleModule,
   MdSnackBarModule,
   MdTabsModule,
   MdToolbarModule,
   MdTooltipModule,
-  MaterialModule, 
-  MdDatepickerModule, 
-  MdNativeDateModule 
+  MaterialModule,
+  MdDatepickerModule,
+  MdNativeDateModule
 } from '@angular/material';
 
 import {
@@ -36,12 +39,16 @@ import {
   CovalentNotificationsModule,
   CovalentPagingModule,
   CovalentSearchModule,
-  CovalentStepsModule
+  CovalentStepsModule,
+  CovalentFileModule
 } from '@covalent/core';
 
 import { AppComponent } from './app.component';
 import { MainPageComponent } from './pages/main-page/main-page.component';
 import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.component';
+import { CandidatePageComponent } from './pages/candidate-page/candidate-page/candidate-page.component';
+import { CandidateJobsComponent } from './pages/candidate-page/candidate-jobs/candidate-jobs.component';
+import { CandidateResumeComponent } from './pages/candidate-page/candidate-resume/candidate-resume.component';
 import { PostjobPageComponent } from './pages/postjob-page/postjob-page.component';
 import { MyoffersPageComponent } from './pages/myoffers-page/myoffers-page.component';
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
@@ -65,10 +72,13 @@ const routes: Routes = [
     component: MainPageComponent,
     canActivate: [AuthGuard],
     children: [
-      {        
+      {
         path: 'dashboard',
         component: DashboardPageComponent
       },
+      { path: 'candidate', component: CandidatePageComponent },
+      { path: 'candidate/jobs', component: CandidateJobsComponent },
+      { path: 'candidate/resume', component: CandidateResumeComponent },
       {
         path: 'postjob',
         component: PostjobPageComponent
@@ -86,7 +96,8 @@ const routes: Routes = [
         component: JobDetailsPageComponent
       }
     ]
-  }
+  },
+
 ];
 
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
@@ -99,7 +110,11 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   declarations: [
     AppComponent,
     MainPageComponent,
-    DashboardPageComponent,    
+    DashboardPageComponent,
+    CandidatePageComponent,
+    CandidateJobsComponent,
+    CandidateResumeComponent,
+    DashboardPageComponent,
     PostjobPageComponent,
     MyoffersPageComponent,
     ProfilePageComponent,
@@ -108,6 +123,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     BrowserAnimationsModule,
     HttpModule,
     RouterModule.forRoot(routes),
@@ -118,6 +134,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     MdListModule,
     MdMenuModule,
     MdTooltipModule,
+    MdSliderModule,
     MdSlideToggleModule,
     MdInputModule,
     MdCheckboxModule,
@@ -137,11 +154,13 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     CovalentStepsModule,
     CovalentCommonModule,
     CovalentDialogsModule,
-    MaterialModule, 
-    MdDatepickerModule, 
-    MdNativeDateModule,    
-    FormsModule, 
-    ReactiveFormsModule  
+    CovalentFileModule,
+    TagInputModule
+    MaterialModule,
+    MdDatepickerModule,
+    MdNativeDateModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     DBService,
