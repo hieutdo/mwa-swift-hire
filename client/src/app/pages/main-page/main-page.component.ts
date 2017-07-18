@@ -1,5 +1,6 @@
-import { AfterViewInit, ChangeDetectorRef, Component } from '@angular/core';
-import { TdMediaService } from '@covalent/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ViewChild } from '@angular/core';
+import { TdLayoutComponent, TdMediaService } from '@covalent/core';
+import { AuthService } from '../../auth.service';
 
 @Component({
   selector: 'app-main-page',
@@ -7,9 +8,18 @@ import { TdMediaService } from '@covalent/core';
   styleUrls: ['./main-page.component.scss']
 })
 export class MainPageComponent implements AfterViewInit {
+  @ViewChild('layout')
+  layout: TdLayoutComponent;
 
   constructor(private changeDetectorRef: ChangeDetectorRef,
+              public auth: AuthService,
               public media: TdMediaService) {}
+
+  logout() {
+    this.auth.logout();
+    this.layout.close();
+    this.auth.login();
+  }
 
   ngAfterViewInit(): void {
     this.media.broadcast();

@@ -24,7 +24,8 @@
         "styles.scss"
       ],
       "scripts": [
-        "../node_modules/hammerjs/hammer.min.js"
+        "../node_modules/hammerjs/hammer.min.js",
+        "../node_modules/auth0-js/build/auth0.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

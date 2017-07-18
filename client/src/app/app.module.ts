@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpModule } from '@angular/http';
+import { Http, HttpModule, RequestOptions } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { AuthConfig, AuthHttp } from 'angular2-jwt';
 import {
   MdButtonModule,
   MdCardModule,
@@ -38,25 +39,47 @@ import {
 import { AppComponent } from './app.component';
 import { MainPageComponent } from './pages/main-page/main-page.component';
 import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.component';
+import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
+import { CallbackComponent } from './pages/callback/callback.component';
+
+import { AuthService } from './auth.service';
+import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
   {
+    path: 'callback',
+    component: CallbackComponent
+  },
+  {
     path: '',
     component: MainPageComponent,
+    canActivate: [AuthGuard],
     children: [
       {
         path: '',
         component: DashboardPageComponent
+      },
+      {
+        path: 'profile',
+        component: ProfilePageComponent
       }
     ]
   }
 ];
+
+export function authHttpServiceFactory(http: Http, options: RequestOptions) {
+  return new AuthHttp(new AuthConfig({
+    tokenGetter: (() => localStorage.getItem('access_token'))
+  }), http, options);
+}
 
 @NgModule({
   declarations: [
     AppComponent,
     MainPageComponent,
     DashboardPageComponent,
+    ProfilePageComponent,
+    CallbackComponent,
   ],
   imports: [
     BrowserModule,
@@ -90,7 +113,15 @@ const routes: Routes = [
     CovalentCommonModule,
     CovalentDialogsModule,
   ],
-  providers: [],
+  providers: [
+    AuthService,
+    AuthGuard,
+    {
+      provide: AuthHttp,
+      useFactory: authHttpServiceFactory,
+      deps: [Http, RequestOptions]
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

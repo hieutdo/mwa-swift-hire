@@ -1,0 +1,22 @@
+<md-toolbar>
+  <div layout="row" layout-align="start center" flex>
+    <button md-icon-button tdLayoutManageListOpen [hideWhenOpened]="true">
+      <md-icon>arrow_back</md-icon>
+    </button>
+    <span>Profile</span>
+    <span flex></span>
+  </div>
+</md-toolbar>
+<div layout-gt-sm="row" tdMediaToggle="gt-xs" [mediaClasses]="['push-sm']">
+  <div flex-gt-sm="100">
+    <md-card>
+      <md-card-title>Profile</md-card-title>
+      <md-divider></md-divider>
+      <md-card-content>
+        <h3>{{ profile?.nickname }}</h3>
+        <pre>{{ profile | json }}</pre>
+      </md-card-content>
+      <md-divider></md-divider>
+    </md-card>
+  </div>
+</div>

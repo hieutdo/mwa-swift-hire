@@ -1,11 +1,11 @@
-<td-layout>
+<td-layout #layout>
   <td-navigation-drawer flex sidenavTitle="Currently logged in as" name="John Doe" email="john.doe@gmail.com">
     <md-nav-list>
-      <a md-list-item>
+      <a md-list-item (click)="layout.close()" [routerLink]="['/profile']">
         <md-icon>tune</md-icon>
-        Account settings
+        Your Profile
       </a>
-      <a md-list-item>
+      <a md-list-item (click)="logout()">
         <md-icon>exit_to_app</md-icon>
         Sign out
       </a>
