@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MdIconRegistry } from '@angular/material';
-import { AuthService } from './auth.service';
+import { AuthService } from './auth/auth.service';
 
 @Component({
   selector: 'app-root',

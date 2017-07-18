@@ -1,20 +1,25 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { WindowRef } from '../services/WindowRef.service';
 import * as auth0 from 'auth0-js';
 
 @Injectable()
 export class AuthService {
-  private auth0 = new auth0.WebAuth({
-    clientID: 'M4IY8Sx2VWBo9NUl2yF16IzXrnVVkAi7',
-    domain: 'caas.auth0.com',
-    responseType: 'token id_token',
-    audience: 'https://api.swifthire.com',
-    redirectUri: 'http://localhost:4200/callback',
-    scope: 'openid profile'
-  });
+  private auth0: auth0.WebAuth;
   public userProfile: any;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private winRef: WindowRef) {
+    const { protocol, host } = winRef.nativeWindow.location;
+
+    this.auth0 = new auth0.WebAuth({
+      clientID: 'M4IY8Sx2VWBo9NUl2yF16IzXrnVVkAi7',
+      domain: 'caas.auth0.com',
+      responseType: 'token id_token',
+      audience: 'https://api.swifthire.com',
+      redirectUri: `${protocol}//${host}/callback`,
+      scope: 'openid profile'
+    });
+  }
 
   public login(): void {
     this.auth0.authorize({});
@@ -30,7 +35,7 @@ export class AuthService {
   public handleAuthentication(): void {
     this.auth0.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
-        window.location.hash = '';
+        this.winRef.nativeWindow.location.hash = '';
         this.setSession(authResult);
         this.router.navigate(['/']);
       } else if (err) {

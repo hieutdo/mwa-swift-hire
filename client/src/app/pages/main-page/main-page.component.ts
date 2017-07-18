@@ -1,6 +1,6 @@
 import { AfterViewInit, ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import { TdLayoutComponent, TdMediaService } from '@covalent/core';
-import { AuthService } from '../../auth.service';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-main-page',

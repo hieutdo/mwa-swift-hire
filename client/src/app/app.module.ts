@@ -42,8 +42,9 @@ import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.co
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 import { CallbackComponent } from './pages/callback/callback.component';
 
-import { AuthService } from './auth.service';
-import { AuthGuard } from './auth.guard';
+import { AuthService } from './auth/auth.service';
+import { AuthGuard } from './guards/auth.guard';
+import { WindowRef } from './services/WindowRef.service';
 
 const routes: Routes = [
   {
@@ -116,6 +117,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   providers: [
     AuthService,
     AuthGuard,
+    WindowRef,
     {
       provide: AuthHttp,
       useFactory: authHttpServiceFactory,
