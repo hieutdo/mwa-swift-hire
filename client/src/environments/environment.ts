@@ -4,5 +4,13 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  auth0: {
+    clientID: 'M4IY8Sx2VWBo9NUl2yF16IzXrnVVkAi7',
+    domain: 'caas.auth0.com',
+    responseType: 'token id_token',
+    audience: 'https://api.swifthire.com',
+    redirectUri: 'http://localhost:4200/callback',
+    scope: 'openid profile'
+  }
 };
