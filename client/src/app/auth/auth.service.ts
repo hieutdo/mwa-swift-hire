@@ -6,13 +6,17 @@ import * as auth0 from 'auth0-js';
 
 @Injectable()
 export class AuthService {
-  private auth0: auth0.WebAuth;
+  private auth0 = new auth0.WebAuth(environment.auth0);
   public userProfile: any;
 
   constructor(private router: Router, private winRef: WindowRef) {
-    const { protocol, host } = winRef.nativeWindow.location;
+    const lsProfile = localStorage.getItem('profile');
 
-    this.auth0 = new auth0.WebAuth(environment.auth0);
+    if (this.isAuthenticated()) {
+      this.userProfile = JSON.parse(lsProfile);
+    } else if (lsProfile) {
+      this.logout();
+    }
   }
 
   public login(): void {
@@ -24,6 +28,9 @@ export class AuthService {
     localStorage.removeItem('access_token');
     localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
+    localStorage.removeItem('profile');
+    this.userProfile = null;
+    this.router.navigate(['/']);
   }
 
   public handleAuthentication(): void {
@@ -31,10 +38,14 @@ export class AuthService {
       if (authResult && authResult.accessToken && authResult.idToken) {
         this.winRef.nativeWindow.location.hash = '';
         this.setSession(authResult);
-        this.router.navigate(['/']);
+        this.getProfile().then(profile => {
+          localStorage.setItem('profile', JSON.stringify(profile));
+          this.userProfile = profile;
+          this.router.navigate(['/']);
+        });
       } else if (err) {
+        console.error('Error occurs while authenticating', err);
         this.router.navigate(['/']);
-        console.log(err);
       }
     });
   }
@@ -64,7 +75,6 @@ export class AuthService {
         if (err) {
           return reject(err);
         }
-        this.userProfile = profile;
         return resolve(profile);
       });
     });

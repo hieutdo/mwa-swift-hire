@@ -77,7 +77,7 @@ mongoose.connection
     bootstrap();
   })
   .on("error", function (error) {
-    console.log("Connection to " + MONGODB_URI + " failed:", error);
+    console.error("Connection to " + MONGODB_URI + " failed:", error);
   })
   .on("disconnected", function () {
     console.log("Disconnected from " + MONGODB_URI);

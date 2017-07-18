@@ -1,4 +1,4 @@
-import { Authorized, Get, JsonController } from 'routing-controllers';
+import { Authorized, Get, JsonController, Param } from 'routing-controllers';
 import { Job } from '../models/job.model';
 
 @JsonController('/jobs')
@@ -9,4 +9,11 @@ export class JobController {
   findAll() {
     return Job.find({});
   }
+
+  @Get('/:id')
+  findById(@Param('id') id: number) {
+    console.log(id);
+    return id;
+  }
+
 }
