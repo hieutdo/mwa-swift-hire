@@ -6,6 +6,7 @@ import * as bodyParser from 'body-parser';
 import * as morgan from 'morgan';
 import * as cors from 'cors';
 import * as jwt from 'express-jwt';
+import * as jwksRsa from 'jwks-rsa';
 import { Action, useContainer, useExpressServer } from 'routing-controllers';
 import { Container } from 'typedi';
 
@@ -41,8 +42,14 @@ function bootstrap() {
   app.use(bodyParser.json());
 
   const authCheck = jwt({
-    secret: new Buffer(process.env.AUTH0_SECRET, 'base64'),
-    audience: process.env.AUTH0_CLIENT_ID
+    secret: (<any>jwksRsa).expressJwtSecret({
+      cache: true,
+      rateLimit: true,
+      jwksUri: 'https://caas.auth0.com/.well-known/jwks.json'
+    }),
+    audience: 'https://api.swifthire.com',
+    issuer: `https://caas.auth0.com/`,
+    algorithms: ['RS256']
   });
 
   useExpressServer(app, {

@@ -7,5 +7,8 @@ export const environment = {
     audience: 'https://api.swifthire.com',
     redirectUri: 'https://hieudt.github.io/mwa-swift-hire/callback',
     scope: 'openid profile'
+  },
+  api: {
+    baseUrl: 'https://swifthire-server-lnrlnmdbzr.now.sh/api'
   }
 };
