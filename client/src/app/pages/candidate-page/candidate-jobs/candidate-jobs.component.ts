@@ -15,6 +15,9 @@ import {
 })
 export class CandidateJobsComponent implements OnInit {
   myForm: FormGroup;
+  jobs  = [];
+  allJobs = [];
+  sJobs = [];
 
   autoTicks = false;
   disabled = false;
@@ -26,6 +29,7 @@ export class CandidateJobsComponent implements OnInit {
   thumbLabel = true;
   sldvalue = 50;
   vertical = false;
+  searchInputTerm = "";
 
 
 
@@ -42,6 +46,15 @@ export class CandidateJobsComponent implements OnInit {
     });
   }
 
+  searchJobs(event){
+    if (typeof event === "string") {
+        this.jobs.filter(job=>job.name.includes(event)).map(job=>this.sJobs.push(job));
+        this.jobs = this.sJobs;
+    }
+    console.log(event)
+
+  }
+
   get tickInterval(): number | 'auto' {
     return this.showTicks ? (this.autoTicks ? 'auto' : this._tickInterval) : 0;
   }
@@ -51,6 +64,84 @@ export class CandidateJobsComponent implements OnInit {
   private _tickInterval = 1;
 
   ngOnInit() {
+
+    this.jobs=[{
+      "name": "Full Stack Developer",
+      "owner":{"name":"Tian",
+        "id":"1",
+        "grade":"4.5"},
+      "desc": "You will help us build API for our compression infrastructure.",
+      "category": "full-time",
+      "createdAt": "20-01-2015",
+      "modifiedAt": "20-01-2015",
+      "city":"Farefiled",
+      "state":"iowa",
+      "location": [-73.840437, 40.6627235],
+      "skills": ["Python", "Javascript", "Redis"],
+      "feeRate": "20",
+      "preferredDate":"20-01-2015",
+      "preferredTime":"10:00",
+      "status":"complete",
+      "perks": ["free food", "gym membership"],
+    },
+      {
+        "name": "Front End Developer",
+        "owner":{"name":"MJ",
+          "id":"1",
+          "grade":"4.5"},
+        "desc": "You will help us build API for our compression infrastructure.",
+        "category": "full-time",
+        "createdAt": "20-01-2015",
+        "modifiedAt": "20-01-2015",
+        "city":"Farefiled",
+        "state":"iowa",
+        "location": [-73.840437, 40.6627235],
+        "skills": ["Python", "Javascript", "Redis"],
+        "feeRate": "20",
+        "preferredDate":"20-01-2015",
+        "preferredTime":"10:00",
+        "status":"complete",
+        "perks": ["free food", "gym membership"],
+      },
+
+      {
+        "name": "Backend Developer",
+        "owner":{"name":"Assad",
+          "id":"1",
+          "grade":"4.5"},
+        "desc": "You will help us build API for our compression infrastructure.",
+        "category": "full-time",
+        "createdAt": "20-01-2015",
+        "modifiedAt": "20-01-2015",
+        "city":"Farefiled",
+        "state":"iowa",
+        "location": [-73.840437, 40.6627235],
+        "skills": ["Python", "Javascript", "Redis"],
+        "feeRate": "20",
+        "preferredDate":"20-01-2015",
+        "preferredTime":"10:00",
+        "status":"complete",
+        "perks": ["free food", "gym membership"],
+      },{
+        "name": "Angular Developer",
+        "owner":{"name":"Assad",
+          "id":"1",
+          "grade":"4.5"},
+        "desc": "You will help us build API for our compression infrastructure.",
+        "category": "full-time",
+        "createdAt": "20-01-2015",
+        "modifiedAt": "20-01-2015",
+        "city":"Iowa City",
+        "state":"iowa",
+        "location": [-73.840437, 40.6627235],
+        "skills": ["Python", "Javascript", "Redis"],
+        "feeRate": "20",
+        "preferredDate":"20-01-2015",
+        "preferredTime":"10:00",
+        "status":"complete",
+        "perks": ["free food", "gym membership"],
+      }];
+    this.allJobs = this.jobs;
     console.log(this.myForm);
   }
 

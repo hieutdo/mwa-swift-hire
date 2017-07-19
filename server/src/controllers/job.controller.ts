@@ -7,8 +7,9 @@ import * as mongoose from 'mongoose';
 export class JobController {
 
   @Get('/')
-  findAll() {
-    return Job.find({});
+  async findAll() {
+    const jobs = await Job.find({}).populate('createdBy').exec();
+    return jobs.map(job => JSON.parse(JSON.stringify(job)));
   }
 
   @Get('/:jobId')
@@ -44,8 +45,13 @@ export class JobController {
   @Get('/getNearestJobs')
   async findNearestJobs(@QueryParam("longitude") longitude: number, @QueryParam("latitude") latitude: number) {
     const location: ICoordinate = { longitude, latitude };
-    const result = await Job.findNearestJobs(location, 10);    
+    const result = await Job.findNearestJobs(location, 10);
     return result.map(doc => JSON.parse(JSON.stringify(doc)));
+  }
+
+  @Get('/getUserJobs')
+  async findUserJobs(@QueryParam("id") id: string){
+    return Job.find({assignee: mongoose.Types.ObjectId(id)});
   }
 
   @Post('/insertAJob')
@@ -68,9 +74,9 @@ export class JobController {
 
   @Get('/getMyOffers')
   async getMyOffers(@QueryParam("userId") userId: string) {
-    const result =await Job.getMyOffers(userId);    
+    const result =await Job.getMyOffers(userId);
     return result.map(doc => JSON.parse(JSON.stringify(doc)));
   }
 
-  
+
 }
