@@ -15,10 +15,7 @@ export class DashboardPageComponent implements OnInit {
   constructor(public dbService: DBService) { }
 
   ngOnInit() {
-    this.dbService.getNearestJobs(-91.9588018, 41.0127348).subscribe(
-      data => this.items = data,
-      error => console.log(error)
-    );
+    this.items = this.dbService.getNearestJobs(-91.9588018, 41.0127348);    
   }
 
 }
