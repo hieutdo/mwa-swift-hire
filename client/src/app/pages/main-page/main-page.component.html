@@ -8,7 +8,7 @@
         <md-icon svgIcon="assets:github"></md-icon>
       </a>
       <button md-icon-button [mdMenuTriggerFor]="profileMenu" mdTooltip="{{ auth.userProfile?.name }}">
-        <img [src]="auth.userProfile?.picture" md-card-avatar />
+        <img [src]="auth.userProfile?.picture" class="avatar" />
       </button>
       <md-menu #profileMenu="mdMenu">
         <a md-menu-item [routerLink]="['/profile']">
