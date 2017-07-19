@@ -1,28 +1,25 @@
 <td-layout #layout>
-  <td-navigation-drawer flex sidenavTitle="Currently logged in as" name="John Doe" email="john.doe@gmail.com">
-    <md-nav-list>
-      <a md-list-item (click)="layout.close()" [routerLink]="['/profile']">
-        <md-icon>tune</md-icon>
-        Your Profile
-      </a>
-      <a md-list-item (click)="logout()">
-        <md-icon>exit_to_app</md-icon>
-        Sign out
-      </a>
-    </md-nav-list>
-  </td-navigation-drawer>
-
   <td-layout-nav>
     <div td-toolbar-content layout="row" layout-align="start center" flex>
-      <button md-icon-button td-menu-button tdLayoutToggle>
-        <md-icon>menu</md-icon>
-      </button>
       <md-icon [routerLink]="['/']" class="md-icon-logo cursor-pointer" svgIcon="assets:covalent-mark"></md-icon>
       <span [routerLink]="['/']" class="cursor-pointer">SwiftHire - Job Board</span>
       <span flex></span>
       <a md-icon-button mdTooltip="Github" href="https://github.com/hieudt/mwa-swift-hire" target="_blank">
         <md-icon svgIcon="assets:github"></md-icon>
       </a>
+      <button md-icon-button [mdMenuTriggerFor]="profileMenu" mdTooltip="{{ auth.userProfile?.name }}">
+        <img [src]="auth.userProfile?.picture" md-card-avatar />
+      </button>
+      <md-menu #profileMenu="mdMenu">
+        <a md-menu-item [routerLink]="['/profile']">
+          <md-icon>person</md-icon>
+          Your Profile
+        </a>
+        <a md-menu-item (click)="logout()">
+          <md-icon>exit_to_app</md-icon>
+          Sign out
+        </a>
+      </md-menu>
     </div>
 
     <td-layout-manage-list
