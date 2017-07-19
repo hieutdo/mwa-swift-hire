@@ -11,36 +11,36 @@ import {
   MdButtonModule,
   MdCardModule,
   MdCheckboxModule,
+  MdDatepickerModule,
   MdIconModule,
   MdInputModule,
   MdListModule,
   MdMenuModule,
+  MdNativeDateModule,
   MdSelectModule,
-  MdSliderModule,
   MdSidenavModule,
+  MdSliderModule,
   MdSlideToggleModule,
   MdSnackBarModule,
   MdTabsModule,
   MdToolbarModule,
-  MdTooltipModule,
-  MaterialModule,
-  MdDatepickerModule,
-  MdNativeDateModule,
+  MdTooltipModule
 } from '@angular/material';
 
 import {
   CovalentCommonModule,
   CovalentDataTableModule,
   CovalentDialogsModule,
+  CovalentFileModule,
   CovalentLayoutModule,
   CovalentLoadingModule,
   CovalentMediaModule,
   CovalentMenuModule,
+  CovalentMessageModule,
   CovalentNotificationsModule,
   CovalentPagingModule,
   CovalentSearchModule,
-  CovalentStepsModule,
-  CovalentFileModule
+  CovalentStepsModule
 } from '@covalent/core';
 
 import { AppComponent } from './app.component';
@@ -59,6 +59,7 @@ import { AuthService } from './auth/auth.service';
 import { AuthGuard } from './guards/auth.guard';
 import { WindowRef } from './services/WindowRef.service';
 import { DBService } from './services/db.service';
+import { JobService } from './services/job.service';
 
 const routes: Routes = [
   {
@@ -94,8 +95,7 @@ const routes: Routes = [
         component: JobDetailsPageComponent
       }
     ]
-  },
-
+  }
 ];
 
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
@@ -156,11 +156,11 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     CovalentStepsModule,
     CovalentCommonModule,
     CovalentDialogsModule,
+    CovalentMessageModule,
     FormsModule,
     ReactiveFormsModule,
     CovalentFileModule,
     TagInputModule,
-    MaterialModule,
     MdDatepickerModule,
     MdNativeDateModule,
     FormsModule,
@@ -170,6 +170,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     AuthService,
     AuthGuard,
     WindowRef,
+    JobService,
     {
       provide: AuthHttp,
       useFactory: authHttpServiceFactory,

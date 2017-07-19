@@ -1,4 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { AuthHttp } from 'angular2-jwt';
+import { environment } from '../../../environments/environment';
+import { TdLoadingService } from '@covalent/core';
+import { AuthService } from '../../auth/auth.service';
+import { JobService } from '../../services/job.service';
 
 @Component({
   selector: 'app-job-details-page',
@@ -6,38 +12,48 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./job-details-page.component.scss']
 })
 export class JobDetailsPageComponent implements OnInit {
-  cardlist: Object[] = [{
-    icon: 'account_box',
-    route: '.',
-    title: 'John Jameson',
-    description: 'Owner',
-  }, {
-    icon: 'description',
-    route: '.',
-    title: 'An item description',
-    description: 'Description',
-  }, {
-    icon: 'vpn_key',
-    route: '.',
-    title: '1141e8e8-8d24-4956-93c2',
-    description: 'API Key',
-  },
-  ];
-  carddates: Object[] = [{
-    icon: 'access_time',
-    route: '.',
-    date: '2017-07-07T00:25:49+00:00',
-    description: 'Last Updated',
-  }, {
-    icon: 'today',
-    route: '.',
-    date: '2017-07-04T00:25:49+00:00',
-    description: 'Created',
-  },
-  ];
-  constructor() { }
+  jobDetails: any;
+  error: any;
+
+  constructor(private route: ActivatedRoute,
+              private auth: AuthService,
+              private authHttp: AuthHttp,
+              private jobService: JobService,
+              private loadingService: TdLoadingService) { }
 
   ngOnInit() {
+    this.loadingService.register('jobdetails.load');
+    this.route.params
+      .mergeMap(({ jobId }) => {
+        return this.authHttp.get(`${environment.api.baseUrl}/jobs/${jobId}`);
+      })
+      .map(res => res.json())
+      .subscribe(
+        jobDetails => {
+          this.jobDetails = jobDetails;
+          this.loadingService.resolve('jobdetails.load');
+        },
+        error => {
+          this.error = error;
+          this.loadingService.resolve('jobdetails.load');
+        });
   }
 
+  isJobOwner(): boolean {
+    return this.auth.userProfile._id === this.jobDetails.createdBy._id;
+  }
+
+  isAssignee(): boolean {
+    return this.jobDetails.assignee ? this.auth.userProfile._id === this.jobDetails.assignee._id : false;
+  }
+
+  canApply(): boolean {
+    return !this.isJobOwner() && !this.jobDetails.assignee;
+  }
+
+  applyJob(): void {
+    this.jobService.updateAssignee(this.jobDetails._id, this.auth.userProfile._id).subscribe(
+      data => this.jobDetails = data
+    );
+  }
 }

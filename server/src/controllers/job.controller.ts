@@ -1,5 +1,6 @@
-import { Authorized, Body, Get, JsonController, Post, QueryParam } from 'routing-controllers';
+import { Authorized, Body, Get, JsonController, Param, Post, QueryParam } from 'routing-controllers';
 import { ICoordinate, Job } from '../models/job.model';
+import * as mongoose from 'mongoose';
 
 @JsonController('/jobs')
 @Authorized()
@@ -8,6 +9,22 @@ export class JobController {
   @Get('/')
   findAll() {
     return Job.find({});
+  }
+
+  @Get('/:jobId')
+  async findById(@Param('jobId') jobId: string) {
+    const job = await Job.findById(jobId).populate('createdBy').populate('assignee').exec();
+    return JSON.parse(JSON.stringify(job));
+  }
+
+  @Post('/updateAssignee')
+  async updateAssignee(@Body() body: any) {
+    await Job.findOneAndUpdate({ _id: mongoose.Types.ObjectId(body.jobId) }, {
+      $set: {
+        assignee: mongoose.Types.ObjectId(body.assigneeId)
+      }
+    });
+    return this.findById(body.jobId);
   }
 
   @Get('/getNearestJobs')
