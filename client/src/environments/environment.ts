@@ -11,7 +11,7 @@ export const environment = {
     responseType: 'token id_token',
     audience: 'https://api.swifthire.com',
     redirectUri: 'http://localhost:4200/callback',
-    scope: 'openid profile'
+    scope: 'openid profile email'
   },
   api: {
     baseUrl: 'http://localhost:4000/api'

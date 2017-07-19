@@ -46,6 +46,7 @@ import { PostjobPageComponent } from './pages/postjob-page/postjob-page.componen
 import { MyoffersPageComponent } from './pages/myoffers-page/myoffers-page.component';
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 import { CallbackComponent } from './pages/callback/callback.component';
+import { JobDetailsPageComponent } from './pages/job-details-page/job-details-page.component';
 
 import { AuthService } from './auth/auth.service';
 import { AuthGuard } from './guards/auth.guard';
@@ -79,6 +80,10 @@ const routes: Routes = [
       {
         path: 'profile',
         component: ProfilePageComponent
+      },
+      {
+        path: 'jobs/:jobId',
+        component: JobDetailsPageComponent
       }
     ]
   }
@@ -99,6 +104,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     MyoffersPageComponent,
     ProfilePageComponent,
     CallbackComponent,
+    JobDetailsPageComponent,
   ],
   imports: [
     BrowserModule,
