@@ -33,7 +33,7 @@
             </md-toolbar>
       -->
       <md-nav-list td-sidenav-content [tdLayoutManageListClose]="!media.query('gt-sm')">
-        <a md-list-item [routerLink]="['dashboard']">
+        <a md-list-item [routerLink]="['/dashboard']">
           <md-icon md-list-icon>dashboard</md-icon>
           Dashboard
         </a>
@@ -51,11 +51,11 @@
           My Resume
         </a>
         <h3 md-subheader>For Employers</h3>
-        <a md-list-item [routerLink]="['postjob']">
+        <a md-list-item [routerLink]="['/postjob']">
           <md-icon md-list-icon>note_add</md-icon>
           Post a Job
         </a>
-        <a md-list-item [routerLink]="['myoffers']">
+        <a md-list-item [routerLink]="['/myoffers']">
           <md-icon md-list-icon>view_list</md-icon>
           My Offers
         </a>

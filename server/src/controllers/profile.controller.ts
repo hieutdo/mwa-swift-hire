@@ -8,7 +8,7 @@ export class ProfileController {
   public async getProfileByEmail(@Param('email') email: string) {
     const user = await User.findOne({ email });
     if (user) {
-      return user.toJSON();
+      return JSON.parse(JSON.stringify(user));
     }
   }
 
@@ -24,7 +24,7 @@ export class ProfileController {
       user = new User(userInfo);
       await user.save();
     }
-    return user.toJSON();
+    return JSON.parse(JSON.stringify(user));
   }
 
 }

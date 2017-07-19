@@ -28,9 +28,9 @@ export interface IJob extends Document {
 }
 
 export interface IJobModel extends Model<IJob> {
-  findNearestJobs(location: ICoordinate, numOfJobs: number): Promise<IJob>;
-  insertAJob(job:any): Promise<IJob>;
-  getMyOffers(username: string): Promise<IJob>;  
+  findNearestJobs(location: ICoordinate, numOfJobs: number): Promise<Array<IJob>>;
+  insertAJob(job: any): Promise<IJob>;
+  getMyOffers(username: string): Promise<IJob>;
 }
 
 export const JobSchema = new Schema({
@@ -67,31 +67,24 @@ export const JobSchema = new Schema({
 
 JobSchema.static('findNearestJobs', (location: ICoordinate, numOfJobs: number = 10) => {
   return Job.find({
-     location: {
-        $nearSphere: {
-           $geometry: {
-              type : "Point",
-              coordinates : [location.longitude, location.latitude ]
-           },
-           $minDistance: 1000,
-           $maxDistance: 5000
-        }
-     }
-   }).limit(numOfJobs);
-   // return Job.find({location:{$near:[location.longitude, location.latitude]}}).limit(numOfJobs);
-
+    location: {
+      $near: {
+        $geometry: {
+          type: "Point",
+          coordinates: [location.longitude, location.latitude]
+        },
+        $maxDistance: 5000
+      }
+    }
+  }).limit(numOfJobs);
 });
 
-JobSchema.static('insertAJob',(job: any) =>{  
-   let result = Job.create(job);
-   Job.ensureIndexes({location: "2d"});
-  return result;
-  //.then(result=>console.log(result)).catch(error=>console.log(error));
+JobSchema.static('insertAJob', (job: any) => {
+  return Job.create(job);
 });
 
-JobSchema.static('getMyOffers', (username: string)=>{
-  return Job.find({"createdBy.name": username});
+JobSchema.static('getMyOffers', (username: string) => {
+  return Job.find({ "createdBy.name": username });
 });
-
 
 export const Job = model<IJob>('Job', JobSchema) as IJobModel;

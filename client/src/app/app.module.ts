@@ -25,7 +25,7 @@ import {
   MdTooltipModule,
   MaterialModule,
   MdDatepickerModule,
-  MdNativeDateModule
+  MdNativeDateModule,
 } from '@angular/material';
 
 import {
@@ -58,11 +58,11 @@ import { JobDetailsPageComponent } from './pages/job-details-page/job-details-pa
 import { AuthService } from './auth/auth.service';
 import { AuthGuard } from './guards/auth.guard';
 import { WindowRef } from './services/WindowRef.service';
-import {DBService} from './pages/DBService';
+import { DBService } from './services/db.service';
 
 const routes: Routes = [
   {
-      path: 'callback',
+    path: 'callback',
     component: CallbackComponent
   },
   {
@@ -81,7 +81,7 @@ const routes: Routes = [
         path: 'postjob',
         component: PostjobPageComponent
       },
-       {
+      {
         path: 'myoffers',
         component: MyoffersPageComponent
       },
@@ -113,6 +113,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     CandidateJobsComponent,
     CandidateResumeComponent,
     DashboardPageComponent,
+    DashboardPageComponent,
     PostjobPageComponent,
     MyoffersPageComponent,
     ProfilePageComponent,
@@ -142,6 +143,8 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     MdSidenavModule,
     MdTabsModule,
     MdSelectModule,
+    MdDatepickerModule,
+    MdNativeDateModule,
     CovalentDataTableModule,
     CovalentMediaModule,
     CovalentLoadingModule,
@@ -153,13 +156,14 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     CovalentStepsModule,
     CovalentCommonModule,
     CovalentDialogsModule,
+    FormsModule,
+    ReactiveFormsModule,
     CovalentFileModule,
     TagInputModule,
     MaterialModule,
     MdDatepickerModule,
     MdNativeDateModule,
     FormsModule,
-    ReactiveFormsModule
   ],
   providers: [
     DBService,
