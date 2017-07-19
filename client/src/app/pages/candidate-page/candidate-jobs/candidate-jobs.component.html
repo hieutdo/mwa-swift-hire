@@ -30,24 +30,34 @@
     </md-card>
   </div>
   <div flex-gt-sm="30">
-    <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)">
+    <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm.value)">
     <md-card>
       <md-card-content>
         <h2 class="example-h2"></h2>
         <md-card-content>
-          <td-search-input placeholder="Search here"
+
+          <td-search-input placeholder="Search Job Title"
                            [showUnderline]="true"
                            [debounce]="500"
                            (searchDebounce)="searchInputTerm = $event"
                            (search)="searchInputTerm = $event"
-                           (clear)="searchInputTerm = ''">
+                           (clear)="searchInputTerm = ''"
+                           formControlName="searchTitle"
+                           ngDefaultControl>
           </td-search-input>
         </md-card-content>
         <h2 class="example-h2">Job Status</h2>
         <section class="example-section">
-
-          <md-checkbox class="example-margin" [(ngModel)]="checked">Current</md-checkbox>
-          <md-checkbox class="example-margin" [(ngModel)]="indeterminate">Completed</md-checkbox>
+          <div formGroupName="status">
+          <md-checkbox class="example-margin"
+                       value="cur"
+                       formControlName="coStatus"
+                       ngDefaultControl>Current</md-checkbox>
+          <md-checkbox class="example-margin"
+                       value="com"
+                       formControlName="cuStatus"
+                       ngDefaultControl>Completed</md-checkbox>
+          </div>
 
         </section>
       </md-card-content>
@@ -56,20 +66,17 @@
       <md-card-content>
         <h2 class="example-h2">Price</h2>
         <section class="example-section">
-          <md-slider min="1" max="5" step="0.5" value="1.5"></md-slider>
-          <md-slider
-            class="example-margin"
-            [(ngModel)]="disabled"
-            [(ngModel)]="invert"
-            [(ngModel)]="max"
-            [(ngModel)]="min"
-            [(ngModel)]="step"
-            [(ngModel)]="thumbLabel"
-            [(ngModel)]="tickInterval"
-            [(ngModel)]="value"
-            [(ngModel)]="vertical"
-            ngDefaultControl>
-          </md-slider>
+          <md-slider  [disabled]="disabled"
+                      [invert]="invert"
+                      [max]="max"
+                      [min]="min"
+                      [step]="step"
+                      [thumb-label]="thumbLabel"
+                      [tick-interval]="tickInterval"
+                      [value]="sldvalue"
+                      [vertical]="vertical"
+                     ngDefaultControl
+                      #slider></md-slider>
         </section>
       </md-card-content>
       <md-divider></md-divider>
@@ -78,12 +85,17 @@
         <section class="example-section">
           <p>
             <md-input-container class="example-full-width" flex>
-              <textarea mdInput placeholder="Latitude"></textarea>
+              <textarea mdInput placeholder="Latitude"
+                        formControlName="latitude"
+                        ngDefaultControl></textarea>
             </md-input-container>
           </p>
           <p>
             <md-input-container class="example-full-width">
-              <textarea mdInput placeholder="Longtitude"></textarea>
+              <textarea mdInput
+                        placeholder="Longtitude"
+                        formControlName="longitude"
+                        ngDefaultControl></textarea>
             </md-input-container>
           </p>
         </section>
@@ -91,6 +103,7 @@
       <md-divider></md-divider>
     </md-card>
 
+      <button md-raised-button color="primary" type="submit" class="btn btn-primary" [disabled]="!myForm.valid">Search</button>
 
     </form>
   </div>
