@@ -59,7 +59,10 @@
         <md-card-actions>
           <button md-button color="accent" class="text-upper" *ngIf="canApply()" (click)="applyJob()">Apply</button>
           <button md-button color="accent" class="text-upper" *ngIf="isJobOwner()">Edit</button>
-          <td-message sublabel="Congrats! You applied to this job." color="primary" icon="info" *ngIf="isAssignee()"></td-message>
+          <td-message sublabel="Congrats! You applied to this job." color="primary" icon="info"
+                      *ngIf="isAssignee()"></td-message>
+          <td-message sublabel="Please be patient! You are in the waiting list." color="accent" icon="info"
+                      *ngIf="isInWaitingList()"></td-message>
         </md-card-actions>
       </md-card>
     </ng-template>

@@ -8,8 +8,14 @@ export class JobService {
   constructor(private authHttp: AuthHttp) { }
 
   public updateAssignee(jobId: string, assigneeId: string) {
-    return this.authHttp.post(`${environment.api.baseUrl}/jobs/updateAssignee`, {
+    return this.authHttp.post(`${environment.api.baseUrl}/jobs/assignee`, {
       jobId, assigneeId
+    }).map(res => res.json());
+  }
+
+  public addCandidate(jobId: string, candidateId: string) {
+    return this.authHttp.post(`${environment.api.baseUrl}/jobs/candidate`, {
+      jobId, candidateId
     }).map(res => res.json());
   }
 }

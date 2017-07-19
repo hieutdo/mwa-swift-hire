@@ -13,13 +13,16 @@ import { JobService } from '../../services/job.service';
 })
 export class JobDetailsPageComponent implements OnInit {
   jobDetails: any;
+  userProfile: any;
   error: any;
 
   constructor(private route: ActivatedRoute,
               private auth: AuthService,
               private authHttp: AuthHttp,
               private jobService: JobService,
-              private loadingService: TdLoadingService) { }
+              private loadingService: TdLoadingService) {
+    this.userProfile = auth.userProfile;
+  }
 
   ngOnInit() {
     this.loadingService.register('jobdetails.load');
@@ -40,19 +43,27 @@ export class JobDetailsPageComponent implements OnInit {
   }
 
   isJobOwner(): boolean {
-    return this.auth.userProfile._id === this.jobDetails.createdBy._id;
+    return this.userProfile._id === this.jobDetails.createdBy._id;
   }
 
   isAssignee(): boolean {
-    return this.jobDetails.assignee ? this.auth.userProfile._id === this.jobDetails.assignee._id : false;
+    return this.jobDetails.assignee
+      ? this.userProfile._id === this.jobDetails.assignee._id
+      : false;
+  }
+
+  isInWaitingList(): boolean {
+    return this.jobDetails.waitingList
+      ? !!this.jobDetails.waitingList.find(candidate => candidate._id === this.userProfile._id)
+      : false;
   }
 
   canApply(): boolean {
-    return !this.isJobOwner() && !this.jobDetails.assignee;
+    return !this.isJobOwner() && !this.isInWaitingList() && !this.jobDetails.assignee;
   }
 
   applyJob(): void {
-    this.jobService.updateAssignee(this.jobDetails._id, this.auth.userProfile._id).subscribe(
+    this.jobService.addCandidate(this.jobDetails._id, this.auth.userProfile._id).subscribe(
       data => this.jobDetails = data
     );
   }

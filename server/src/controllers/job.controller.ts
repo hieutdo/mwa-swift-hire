@@ -13,15 +13,29 @@ export class JobController {
 
   @Get('/:jobId')
   async findById(@Param('jobId') jobId: string) {
-    const job = await Job.findById(jobId).populate('createdBy').populate('assignee').exec();
+    const job = await Job.findById(jobId)
+      .populate('createdBy')
+      .populate('assignee')
+      .populate('waitingList')
+      .exec();
     return JSON.parse(JSON.stringify(job));
   }
 
-  @Post('/updateAssignee')
+  @Post('/assignee')
   async updateAssignee(@Body() body: any) {
     await Job.findOneAndUpdate({ _id: mongoose.Types.ObjectId(body.jobId) }, {
       $set: {
         assignee: mongoose.Types.ObjectId(body.assigneeId)
+      }
+    });
+    return this.findById(body.jobId);
+  }
+
+  @Post('/candidate')
+  async addCandidate(@Body() body: any) {
+    await Job.findOneAndUpdate({ _id: mongoose.Types.ObjectId(body.jobId) }, {
+      $addToSet: {
+        waitingList: mongoose.Types.ObjectId(body.candidateId)
       }
     });
     return this.findById(body.jobId);
