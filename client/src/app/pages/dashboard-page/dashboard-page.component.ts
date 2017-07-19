@@ -1,8 +1,7 @@
-import { Component, OnInit,ChangeDetectionStrategy } from '@angular/core';
-import {DBService} from '../DBService';
-import 'rxjs/add/operator/toPromise';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { DBService } from '../../services/db.service';
 import { AuthHttp } from 'angular2-jwt';
-import {environment} from '../../../environments/environment';
+import 'rxjs/add/operator/toPromise';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -12,21 +11,14 @@ import {environment} from '../../../environments/environment';
 })
 export class DashboardPageComponent implements OnInit {
   public items: any;
-  constructor(private authHttp: AuthHttp, public dbService: DBService) { }
+
+  constructor(public dbService: DBService) { }
 
   ngOnInit() {
-    //  this.authHttp.get(`${environment.api.baseUrl}/jobs/1`).map(res => res.json()).subscribe(
-    //   data => console.log(data),
-    //   error => console.log(error)
-    // );
-    // this.dbService.getNearestJobs().subscribe(data =>{this.items=data}); 13.593749 14.604847 7.968749  15.961329 11.484374  18.312811
-      
-    this.dbService.getNearestJobs(10.078124,13.923414).subscribe(
-      data => this.items = data, 
+    this.dbService.getNearestJobs(-91.9588018, 41.0127348).subscribe(
+      data => this.items = data,
       error => console.log(error)
     );
-    
   }
-  
 
 }

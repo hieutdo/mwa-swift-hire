@@ -1,4 +1,4 @@
-import { NgModule, Component } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Http, HttpModule, RequestOptions } from '@angular/http';
@@ -9,20 +9,19 @@ import {
   MdButtonModule,
   MdCardModule,
   MdCheckboxModule,
+  MdDatepickerModule,
   MdIconModule,
   MdInputModule,
   MdListModule,
   MdMenuModule,
+  MdNativeDateModule,
   MdSelectModule,
   MdSidenavModule,
   MdSlideToggleModule,
   MdSnackBarModule,
   MdTabsModule,
   MdToolbarModule,
-  MdTooltipModule,
-  MaterialModule, 
-  MdDatepickerModule, 
-  MdNativeDateModule 
+  MdTooltipModule
 } from '@angular/material';
 
 import {
@@ -51,13 +50,13 @@ import { JobDetailsPageComponent } from './pages/job-details-page/job-details-pa
 import { AuthService } from './auth/auth.service';
 import { AuthGuard } from './guards/auth.guard';
 import { WindowRef } from './services/WindowRef.service';
-import {DBService} from './pages/DBService';
+import { DBService } from './services/db.service';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 const routes: Routes = [
   {
-      path: 'callback',
+    path: 'callback',
     component: CallbackComponent
   },
   {
@@ -65,7 +64,7 @@ const routes: Routes = [
     component: MainPageComponent,
     canActivate: [AuthGuard],
     children: [
-      {        
+      {
         path: 'dashboard',
         component: DashboardPageComponent
       },
@@ -73,7 +72,7 @@ const routes: Routes = [
         path: 'postjob',
         component: PostjobPageComponent
       },
-       {
+      {
         path: 'myoffers',
         component: MyoffersPageComponent
       },
@@ -99,7 +98,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   declarations: [
     AppComponent,
     MainPageComponent,
-    DashboardPageComponent,    
+    DashboardPageComponent,
     PostjobPageComponent,
     MyoffersPageComponent,
     ProfilePageComponent,
@@ -126,6 +125,8 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     MdSidenavModule,
     MdTabsModule,
     MdSelectModule,
+    MdDatepickerModule,
+    MdNativeDateModule,
     CovalentDataTableModule,
     CovalentMediaModule,
     CovalentLoadingModule,
@@ -137,11 +138,8 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     CovalentStepsModule,
     CovalentCommonModule,
     CovalentDialogsModule,
-    MaterialModule, 
-    MdDatepickerModule, 
-    MdNativeDateModule,    
-    FormsModule, 
-    ReactiveFormsModule  
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     DBService,
