@@ -1,6 +1,6 @@
-import { NgModule, Component } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Http, HttpModule, RequestOptions } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
@@ -59,8 +59,6 @@ import { AuthService } from './auth/auth.service';
 import { AuthGuard } from './guards/auth.guard';
 import { WindowRef } from './services/WindowRef.service';
 import {DBService} from './pages/DBService';
-
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 const routes: Routes = [
   {
@@ -124,6 +122,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     BrowserAnimationsModule,
     HttpModule,
     RouterModule.forRoot(routes),
@@ -155,7 +154,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     CovalentCommonModule,
     CovalentDialogsModule,
     CovalentFileModule,
-    TagInputModule
+    TagInputModule,
     MaterialModule,
     MdDatepickerModule,
     MdNativeDateModule,
