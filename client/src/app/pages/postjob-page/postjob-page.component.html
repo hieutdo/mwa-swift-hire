@@ -1,0 +1,189 @@
+<md-card tdMediaToggle="gt-xs" [mediaClasses]="['push']">
+  <md-card-title>
+    POST A JOB
+  </md-card-title>
+  <md-divider></md-divider>
+  <md-card-content class="push-bottom-none">
+    <form #postForm ="ngForm" (ngSubmit)="onSubmit(postForm)">
+      <div layout="row">
+        <md-input-container flex>
+          <input mdInput
+                  #nameElement
+                  #nameControl = "ngModel"
+                  type="text" 
+                  placeholder="Job Name" 
+                  [(ngModel)]="name" 
+                  name="name" 
+                  maxlength="20" 
+                  required>
+          <md-hint align="start">
+            <span [hidden]="nameControl.pristine || !nameControl.errors?.required" class="tc-red-600">Required</span>
+          </md-hint>
+          <md-hint align="end">{{nameElement.value.length}} / 20</md-hint>
+        </md-input-container>
+      </div>
+      <div layout="row" class="push-top">        
+          <md-input-container flex>         
+              <textarea mdInput 
+                  md-autosize       
+                  #descriptionControl="ngModel"             
+                  [(ngModel)]="description"
+                  placeholder="Description" 
+                  name="description"                  
+                  required> 
+              </textarea> 
+              <md-hint align="start">                  
+                <span [hidden]="descriptionControl.pristine || !descriptionControl.errors?.required" class="tc-red-600">Required</span>
+              </md-hint>    
+          </md-input-container>        
+      </div>
+      <div layout="row" class="push-top">        
+          <md-select placeholder="Category"
+                     #categoryControl="ngModel"                 
+                     ngModel
+                     name="category"                     
+                     required>
+            <md-option *ngFor="let category of categories" [value]="category.value" >
+              {{category.viewValue}}
+            </md-option>
+          </md-select>
+          <md-hint align="start">
+            <span [hidden]="categoryControl.pristine || !categoryControl.errors?.required" class="tc-red-600">Required</span>
+          </md-hint>           
+      </div>
+      <div layout="row" class="push-top">
+        <md-input-container flex>
+          <input mdInput
+                  #durationElement
+                  #durationControl = "ngModel"
+                  type="text" 
+                  placeholder="Duration Time" 
+                  [(ngModel)]="duration" 
+                  name="duration"                  
+                  required>
+          <md-hint align="start">
+            <span [hidden]="durationControl.pristine || !durationControl.errors?.required" class="tc-red-600">Required</span>
+          </md-hint>          
+        </md-input-container>
+      </div>
+      <div layout="row" class="push-top">
+        <md-input-container flex>
+          <input mdInput
+                  #feeRateElement
+                  #feeRateControl = "ngModel"
+                  type="text" 
+                  placeholder="Fee Rate" 
+                  [(ngModel)]="feeRate" 
+                  name="feeRate"                  
+                  required>
+          <md-hint align="start">
+            <span [hidden]="feeRateControl.pristine || !feeRateControl.errors?.required" class="tc-red-600">Required</span>
+          </md-hint>          
+        </md-input-container>
+      </div>
+      <div layout="row" class="push-top">
+        <md-input-container>
+          <input mdInput [mdDatepicker]="pickDate"          
+          [(ngModel)]=  "preferDate"        
+          placeholder="Choose a prefer date" name ="preferDate">
+          <button mdSuffix [mdDatepickerToggle]="pickDate"></button>
+        </md-input-container>
+        <md-datepicker #pickDate></md-datepicker>
+      </div>
+       <div layout="row" class="push-top">
+         <div layout="row">
+         <md-input-container flex>
+            <input mdInput
+                    #preferTimeElement 
+                    #preferTimeControl = "ngModel"                                     
+                    type="text"
+                    placeholder="Prefer time(hh:mm)"
+                    [(ngModel)]="preferTime"
+                    name="preferTime"
+                    required>
+               <md-hint align="start">
+                <span [hidden]="preferTimeControl.pristine || !preferTimeControl.errors?.required"
+                      class="tc-red-600">Required</span>
+            </md-hint>    
+          </md-input-container> 
+         </div>         
+      </div>
+        <div layout="row" class="push-top">
+            <md-input-container flex>
+              <input mdInput                    
+                      #stateControl = "ngModel"
+                      type="text" 
+                      placeholder="State" 
+                      [(ngModel)]="state" 
+                      name="state"                  
+                      required>
+              <md-hint align="start">
+                <span [hidden]="stateControl.pristine || !stateControl.errors?.required" class="tc-red-600">Required</span>
+              </md-hint>          
+            </md-input-container>
+          </div>
+          <div layout="row" class="push-top">
+            <md-input-container flex>
+              <input mdInput                     
+                      #cityControl = "ngModel"
+                      type="text" 
+                      placeholder="City" 
+                      [(ngModel)]="city" 
+                      name="city"                  
+                      required>
+              <md-hint align="start">
+                <span [hidden]="cityControl.pristine || !cityControl.errors?.required" class="tc-red-600">Required</span>
+              </md-hint>          
+            </md-input-container>
+          </div>
+          <div layout="row" class="push-top">
+            <md-input-container flex>
+              <input mdInput                     
+                      #streetControl = "ngModel"
+                      type="text" 
+                      placeholder="Street" 
+                      [(ngModel)]="street" 
+                      name="street"                  
+                      required>
+              <md-hint align="start">
+                <span [hidden]="streetControl.pristine || !streetControl.errors?.required" class="tc-red-600">Required</span>
+              </md-hint>          
+            </md-input-container>
+          </div>
+          <div layout="row" class="push-top">
+            <md-input-container flex>
+              <input mdInput                     
+                      #longControl = "ngModel"
+                      type="text" 
+                      placeholder="Longitude" 
+                      [(ngModel)]="long" 
+                      name="long"                  
+                      required>
+              <md-hint align="start">
+                <span [hidden]="longControl.pristine || !longControl.errors?.required" class="tc-red-600">Required</span>
+              </md-hint>          
+            </md-input-container>
+            <md-input-container flex>
+              <input mdInput                     
+                      #latControl = "ngModel"
+                      type="text" 
+                      placeholder="Latitude" 
+                      [(ngModel)]="lat" 
+                      name="lat"                  
+                      required>
+              <md-hint align="start">
+                <span [hidden]="latControl.pristine || !latControl.errors?.required" class="tc-red-600">Required</span>
+              </md-hint>          
+            </md-input-container>
+          </div>
+    </form>
+    </md-card-content>
+    <md-divider></md-divider>
+    <md-card-actions>
+      <button md-button [disabled]="!postForm.valid" color="primary" (click)="onSubmit(postForm)">SAVE</button>
+      <button md-button (click)="goBack()">CANCEL</button>
+    </md-card-actions>
+  </md-card>
+
+    <!-- #preferDateControl= "ngModel" #preferTimeControl="ngModel"
+    #descriptionControl = "ngModel"  -->

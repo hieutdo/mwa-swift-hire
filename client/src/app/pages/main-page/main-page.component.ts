@@ -7,7 +7,8 @@ import { AuthService } from '../../auth/auth.service';
   templateUrl: './main-page.component.html',
   styleUrls: ['./main-page.component.scss']
 })
-export class MainPageComponent implements AfterViewInit {
+export class MainPageComponent implements AfterViewInit { 
+  
   @ViewChild('layout')
   layout: TdLayoutComponent;
 

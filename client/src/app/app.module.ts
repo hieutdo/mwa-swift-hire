@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Http, HttpModule, RequestOptions } from '@angular/http';
@@ -19,7 +19,10 @@ import {
   MdSnackBarModule,
   MdTabsModule,
   MdToolbarModule,
-  MdTooltipModule
+  MdTooltipModule,
+  MaterialModule, 
+  MdDatepickerModule, 
+  MdNativeDateModule 
 } from '@angular/material';
 
 import {
@@ -39,16 +42,21 @@ import {
 import { AppComponent } from './app.component';
 import { MainPageComponent } from './pages/main-page/main-page.component';
 import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.component';
+import { PostjobPageComponent } from './pages/postjob-page/postjob-page.component';
+import { MyoffersPageComponent } from './pages/myoffers-page/myoffers-page.component';
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 import { CallbackComponent } from './pages/callback/callback.component';
 
 import { AuthService } from './auth/auth.service';
 import { AuthGuard } from './guards/auth.guard';
 import { WindowRef } from './services/WindowRef.service';
+import {DBService} from './pages/DBService';
+
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 const routes: Routes = [
   {
-    path: 'callback',
+      path: 'callback',
     component: CallbackComponent
   },
   {
@@ -56,9 +64,17 @@ const routes: Routes = [
     component: MainPageComponent,
     canActivate: [AuthGuard],
     children: [
-      {
-        path: '',
+      {        
+        path: 'dashboard',
         component: DashboardPageComponent
+      },
+      {
+        path: 'postjob',
+        component: PostjobPageComponent
+      },
+       {
+        path: 'myoffers',
+        component: MyoffersPageComponent
       },
       {
         path: 'profile',
@@ -78,7 +94,9 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   declarations: [
     AppComponent,
     MainPageComponent,
-    DashboardPageComponent,
+    DashboardPageComponent,    
+    PostjobPageComponent,
+    MyoffersPageComponent,
     ProfilePageComponent,
     CallbackComponent,
   ],
@@ -113,8 +131,14 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     CovalentStepsModule,
     CovalentCommonModule,
     CovalentDialogsModule,
+    MaterialModule, 
+    MdDatepickerModule, 
+    MdNativeDateModule,    
+    FormsModule, 
+    ReactiveFormsModule  
   ],
   providers: [
+    DBService,
     AuthService,
     AuthGuard,
     WindowRef,
