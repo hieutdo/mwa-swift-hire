@@ -12,8 +12,8 @@ export class JobController {
 
   @Get('/getNearestJobs')
   async findNearestJobs(@QueryParam("longitude") longitude: number, @QueryParam("latitude") latitude: number) {
-    let location: ICoordinate = { longitude, latitude };
-    let result = await Job.findNearestJobs(location, 10);
+    const location: ICoordinate = { longitude, latitude };
+    const result = await Job.findNearestJobs(location, 10);
     return result.map(doc => JSON.parse(JSON.stringify(doc)));
   }
 

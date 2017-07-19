@@ -19,8 +19,7 @@ export class DBService {
   }
 
   getNearestJobs(longitude: number, latitude: number) {
-    return this.authHttp.get(`${environment.api.baseUrl}/jobs/getNearestJobs?longitude=${longitude}&latitude=${latitude}`)
-      .map((res: Response) => res.json());
+    return this.authHttp.get(`${environment.api.baseUrl}/jobs/getNearestJobs?longitude=${longitude}&latitude=${latitude}`);
   }
 
   getMyOffers(username: string) {
