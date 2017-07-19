@@ -27,9 +27,9 @@
               <textarea mdInput 
                   md-autosize       
                   #descriptionControl="ngModel"             
-                  [(ngModel)]="description"
+                  [(ngModel)]="desc"
                   placeholder="Description" 
-                  name="description"                  
+                  name="desc"                  
                   required> 
               </textarea> 
               <md-hint align="start">                  
@@ -84,8 +84,8 @@
       <div layout="row" class="push-top">
         <md-input-container>
           <input mdInput [mdDatepicker]="pickDate"          
-          [(ngModel)]=  "preferDate"        
-          placeholder="Choose a prefer date" name ="preferDate">
+          [(ngModel)]=  "preferredDate"        
+          placeholder="Choose a prefer date" name ="preferredDate">
           <button mdSuffix [mdDatepickerToggle]="pickDate"></button>
         </md-input-container>
         <md-datepicker #pickDate></md-datepicker>
@@ -98,8 +98,8 @@
                     #preferTimeControl = "ngModel"                                     
                     type="text"
                     placeholder="Prefer time(hh:mm)"
-                    [(ngModel)]="preferTime"
-                    name="preferTime"
+                    [(ngModel)]="preferredTime"
+                    name="preferredTime"
                     required>
                <md-hint align="start">
                 <span [hidden]="preferTimeControl.pristine || !preferTimeControl.errors?.required"
@@ -156,8 +156,8 @@
                       #longControl = "ngModel"
                       type="text" 
                       placeholder="Longitude" 
-                      [(ngModel)]="long" 
-                      name="long"                  
+                      ngModel 
+                      name="location.longitude"                  
                       required>
               <md-hint align="start">
                 <span [hidden]="longControl.pristine || !longControl.errors?.required" class="tc-red-600">Required</span>
@@ -168,8 +168,8 @@
                       #latControl = "ngModel"
                       type="text" 
                       placeholder="Latitude" 
-                      [(ngModel)]="lat" 
-                      name="lat"                  
+                      ngModel
+                      name="location.latitude"                  
                       required>
               <md-hint align="start">
                 <span [hidden]="latControl.pristine || !latControl.errors?.required" class="tc-red-600">Required</span>

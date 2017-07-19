@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {NgForm, NgModel} from '@angular/forms';
+import {NgForm, NgModel, FormBuilder,  Validators} from '@angular/forms';
 import {DBService} from './../DBService';
+// import {FORM_DIRECTIVES, Control, ControlGroup} from '@angular/common';
 
 @Component({
   selector: 'app-postjob-page',
@@ -10,6 +11,7 @@ import {DBService} from './../DBService';
 export class PostjobPageComponent implements OnInit {
   categories: any[];
  
+  // postForm : Contr
   constructor(private dbService: DBService) {
     this.categories = this.dbService.getCategory();
   }
@@ -19,5 +21,6 @@ export class PostjobPageComponent implements OnInit {
   }
   onSubmit(postForm: NgForm){
     console.log(postForm.value);
+    this.dbService.insertAJob(postForm.value).subscribe(data => console.log(data));
   }
 }

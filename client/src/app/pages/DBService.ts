@@ -1,111 +1,43 @@
 import {Injectable} from '@angular/core';
-import {Http, Response} from '@angular/http';
-
+import {Response, RequestOptions, Headers} from '@angular/http';
+import { AuthHttp } from 'angular2-jwt';
+import {environment} from '../../environments/environment';
 
 @Injectable()
 export class DBService {
 categories:any[];
-  constructor(public http: Http) {
-   this.categories =[ {value: 'steak-0', viewValue: 'Steak'},
-    {value: 'pizza-1', viewValue: 'Pizza'},
-    {value: 'tacos-2', viewValue: 'Tacos'}];
+
+
+  constructor(private authHttp: AuthHttp) {
+    this.categories =[ {value: 'Web Design', viewValue: 'Web Design'},
+    {value: 'Software', viewValue: 'Software'},
+    {value: 'Hardware', viewValue: 'Hardware'},
+    {value: 'HomeService', viewValue: 'HomeService'},
+    {value: 'MoveHouse', viewValue: 'MoveHouse'},
+    {value: 'Healthcare', viewValue: 'Healthcare'}];
   }
 
-  getNearestJobs(){
-    let items: any=[
-    {
-    "item_id": "1",
-    "name": "Web Design",
-    "description": "Design a web for a small shopping clothes.Design a web for a small shopping clothesDesign a web for a small shopping clothesDesign a web for a small shopping clothesDesign a web for a small shopping clothesDesign a web for a small shopping clothesDesign a web for a small shopping clothes",
-    "category": "Web Design",
-    "location":"street, city, state",
-    "duration":"10",
-    "feerate":"20$",
-    "preferdate":"07/19/2017",
-    "prefertime":"08:00 AM",
-    "status":"open",
-    "icon": "account_circle",
-    "created" : "07/13/2017 11:05 AM"
-  },{
-    "item_id": "2",
-    "name": "Bobby Daniels",
-    "description": "made a deposit of $25.15",
-    "icon": "account_balance_wallet",
-    "created" : "07/01/2016 03:41 PM"
-  },{
-    "item_id": "3",
-    "name": "John Walker",
-    "description": "changed refresh settings on their account",
-    "icon": "autorenew",
-    "created" : "06/15/2016 09:02 AM"
-  },{
-    "item_id": "4",
-    "name": "Eddy Stevens",
-    "description": "liked the latest announcements",
-    "icon": "thumb_up",
-    "created" : "03/23/2016 11:01 PM"
-  },{
-    "item_id": "5",
-    "name": "Jan Williams",
-    "description": "sent a personal message to a user",
-    "icon": "message",
-    "created" : "12/23/2015 11:05 AM"
-  }
-];  
-//console.log(items.json());.map((res: Response) => res.json())
-  return items;
+  getNearestJobs(longitude: number, latitude: number){
+    return this.authHttp.get(`${environment.api.baseUrl}/jobs/getNearestJobs?longitude=${longitude},latitude=${latitude}`)
+    .map((res:Response)=>res.json);
   }
 
-  getMyOffers(userName: string){
-    let items: any[]=[
-    {
-    "item_id": "1",
-    "name": "Web Design",
-    "description": "Design a web for a small shopping clothes.Design a web for a small shopping clothesDesign a web for a small shopping clothesDesign a web for a small shopping clothesDesign a web for a small shopping clothesDesign a web for a small shopping clothesDesign a web for a small shopping clothes",
-    "category": "Web Design",
-    "location":"street, city, state",
-    "duration":"10",
-    "feerate":"20$",
-    "preferdate":"07/19/2017",
-    "prefertime":"08:00 AM",
-    "status":"open",
-    "icon": "account_circle",
-    "created" : "07/13/2017 11:05 AM"
-  },{
-    "item_id": "2",
-    "name": "Bobby Daniels",
-    "description": "made a deposit of $25.15",
-    "icon": "account_balance_wallet",
-    "created" : "07/01/2016 03:41 PM"
-  },{
-    "item_id": "3",
-    "name": "John Walker",
-    "description": "changed refresh settings on their account",
-    "icon": "autorenew",
-    "created" : "06/15/2016 09:02 AM"
-  },{
-    "item_id": "4",
-    "name": "Eddy Stevens",
-    "description": "liked the latest announcements",
-    "icon": "thumb_up",
-    "created" : "03/23/2016 11:01 PM"
-  },{
-    "item_id": "5",
-    "name": "Jan Williams",
-    "description": "sent a personal message to a user",
-    "icon": "message",
-    "created" : "12/23/2015 11:05 AM"
-  }
-];  
-
-    return items;
+  getMyOffers(username: string){
+    return this.authHttp.get(`${environment.api.baseUrl}/jobs/getMyOffers?username=${username}`)
+    .map((res:Response) => res.json);
   }
 
   getCategory(){    
     return this.categories;
   }
 
-  addNewJob(job: any){
-
+  insertAJob(job: any){
+    let bodyString = JSON.stringify(job); 
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this.authHttp.post(`${environment.api.baseUrl}/jobs/insertAJob`,bodyString, options)
+                          .map((res:Response) => res.json()) ;
   }
+// .catch((error:any) => Observable.throw(error.json().error || 'Server error')
+  
 }

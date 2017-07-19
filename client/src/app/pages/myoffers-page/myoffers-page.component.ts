@@ -7,12 +7,12 @@ import {DBService} from '../DBService';
 })
 export class MyoffersPageComponent implements OnInit {
 
-  items = [];
+  items: any;
   userName: string;
   constructor(public dbService: DBService) { }
 
   ngOnInit() {
-    this.items = this.dbService.getMyOffers(this.userName);
+    this.dbService.getMyOffers(this.userName).subscribe(data => this.items = data);
   }
 
   
