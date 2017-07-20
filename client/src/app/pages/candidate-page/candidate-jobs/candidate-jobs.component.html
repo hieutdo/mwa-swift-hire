@@ -39,6 +39,7 @@
           <div formGroupName="status">
           <md-checkbox class="example-margin"
                        value="cur"
+                       (change)="searchJobs($event)"
                        formControlName="coStatus"
                        ngDefaultControl>Current</md-checkbox>
           <md-checkbox class="example-margin"
