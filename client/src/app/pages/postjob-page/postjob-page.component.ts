@@ -22,4 +22,11 @@ export class PostjobPageComponent implements OnInit {
     console.log(postForm.value);
     this.dbService.insertAJob(postForm.value).subscribe(data => console.log(data));
   }
+  
+  onReset(postForm: NgForm): void { postForm.resetForm(); }
+
+  resetForm(value: any = undefined): void {
+    this.resetForm(value);
+  }
+
 }

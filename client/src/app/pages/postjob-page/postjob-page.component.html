@@ -58,14 +58,14 @@
           <input mdInput
                  #durationElement
                  #durationControl="ngModel"
-                 type="text"
+                 type="number"
                  placeholder="Duration Time"
                  ngModel
                  name="duration"
                  required>
           <md-hint align="start">
-            <span [hidden]="durationControl.pristine || !durationControl.errors?.required"
-                  class="tc-red-600">Required</span>
+            <span [hidden]="durationControl.pristine || !durationControl.errors?.required" 
+                  class="tc-red-600">Required a number</span>
           </md-hint>
         </md-input-container>
       </div>
@@ -74,7 +74,7 @@
           <input mdInput
                  #feeRateElement
                  #feeRateControl="ngModel"
-                 type="text"
+                 type="number"
                  placeholder="Fee Rate"
                  ngModel
                  name="feeRate"
@@ -93,21 +93,21 @@
           <button mdSuffix [mdDatepickerToggle]="pickDate"></button>
         </md-input-container>
         <md-datepicker #pickDate></md-datepicker>
-      </div>
+      </div>      
       <div layout="row" class="push-top">
         <div layout="row">
-          <md-input-container flex>
+          <md-input-container flex>            
             <input mdInput
                    #preferTimeElement
                    #preferTimeControl="ngModel"
-                   type="text"
-                   placeholder="Prefer time(hh:mm)"
+                   type="time"
+                   placeholder="Prefer time"
                    ngModel
                    name="preferredTime"
                    required>
             <md-hint align="start">
                 <span [hidden]="preferTimeControl.pristine || !preferTimeControl.errors?.required"
-                      class="tc-red-600">Required</span>
+                      class="tc-red-600">Required a pattern is hh:mm</span>
             </md-hint>
           </md-input-container>
         </div>
@@ -159,25 +159,25 @@
         <md-input-container flex>
           <input mdInput
                  #longControl="ngModel"
-                 type="text"
+                 type="number"
                  placeholder="Longitude"
                  ngModel
                  name="location.longitude"
                  required>
           <md-hint align="start">
-            <span [hidden]="longControl.pristine || !longControl.errors?.required" class="tc-red-600">Required</span>
+            <span [hidden]="longControl.pristine || !longControl.errors?.required" class="tc-red-600">Required a number</span>
           </md-hint>
         </md-input-container>
         <md-input-container flex>
           <input mdInput
                  #latControl="ngModel"
-                 type="text"
+                 type="number"
                  placeholder="Latitude"
                  ngModel
                  name="location.latitude"
                  required>
           <md-hint align="start">
-            <span [hidden]="latControl.pristine || !latControl.errors?.required" class="tc-red-600">Required</span>
+            <span [hidden]="latControl.pristine || !latControl.errors?.required" class="tc-red-600">Required a number</span>
           </md-hint>
         </md-input-container>
       </div>
@@ -186,7 +186,7 @@
   <md-divider></md-divider>
   <md-card-actions>
     <button md-button [disabled]="!postForm.valid" color="primary" (click)="onSubmit(postForm)">SAVE</button>
-    <button md-button (click)="goBack()">CANCEL</button>
+    <button md-button (click)="onReset(postForm)">CANCEL</button>
   </md-card-actions>
 </md-card>
 

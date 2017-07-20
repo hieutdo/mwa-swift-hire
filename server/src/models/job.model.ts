@@ -78,23 +78,23 @@ JobSchema.static('findNearestJobs', (location: ICoordinate, numOfJobs: number = 
         $maxDistance: 5000
       }
     }
-  }).limit(numOfJobs);
+  }).limit(numOfJobs).sort({"preferredDate":-1});
 });
 
-JobSchema.pre('create', function (next) {
-  const now = new Date();
-  this.modifiedAt = now;
-  if (!this.createdAt) {
-    this.createdAt = now;
-  }
-  next();
-});
+// JobSchema.pre('create', function (next) {
+//   const now = new Date();
+//   this.modifiedAt = now;
+//   if (!this.createdAt) {
+//     this.createdAt = now;
+//   }
+//   next();
+// });
 JobSchema.static('insertAJob', (job: any) => {
   return Job.create(job);
 });
 
 JobSchema.static('getMyOffers', (userId: string) => {
-  return Job.find({ "createdBy.name": userId });
+  return Job.find({ "createdBy.name": userId }).sort({"preferredDate":-1});
 });
 
 export const Job = model<IJob>('Job', JobSchema) as IJobModel;
