@@ -18,4 +18,9 @@ export class JobService {
       jobId, candidateId
     }).map(res => res.json());
   }
+
+  public removeCandidate(candidateId: string) {
+    return this.authHttp.delete(`${environment.api.baseUrl}/jobs/candidate/${candidateId}`)
+      .map(res => res.json());
+  }
 }

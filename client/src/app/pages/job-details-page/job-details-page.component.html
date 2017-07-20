@@ -65,6 +65,7 @@
                       *ngIf="isInWaitingList()"></td-message>
         </md-card-actions>
       </md-card>
+      <app-candidate-list *ngIf="jobDetails && isJobOwner()" [users]="jobDetails?.waitingList"></app-candidate-list>
     </ng-template>
   </div>
 </div>

@@ -1,0 +1,35 @@
+<md-card>
+  <md-card-title>Candidates ({{ users.length }})</md-card-title>
+  <md-divider></md-divider>
+  <td-search-box class="push-left push-right" placeholder="Search" [alwaysVisible]="true"
+                 (searchDebounce)="filterUsers($event)"></td-search-box>
+  <ng-template tdLoading="users.list">
+    <md-list class="will-load">
+      <div class="md-padding" *ngIf="filteredUsers?.length === 0" layout="row" layout-align="center center">
+        <h3>No users to display.</h3>
+      </div>
+      <ng-template let-user let-last="last" ngFor [ngForOf]="filteredUsers">
+        <md-list-item>
+          <md-icon md-list-avatar><img [src]="user.picture" class="avatar" /></md-icon>
+          <h3 md-line> {{user.name}} </h3>
+          <p md-line> {{user.email}} </p>
+          <span flex></span>
+          <span>
+              <button md-icon-button [md-menu-trigger-for]="menu">
+                <md-icon>more_vert</md-icon>
+              </button>
+              <md-menu x-position="before" #menu="mdMenu">
+                  <button md-menu-item (click)="accept(user.id)">
+                    <md-icon>thumb_up</md-icon> Accept
+                  </button>
+                  <button md-menu-item (click)="delete(user.id)">
+                    <md-icon>thumb_down</md-icon> Reject
+                  </button>
+              </md-menu>
+          </span>
+        </md-list-item>
+        <md-divider *ngIf="!last" md-inset></md-divider>
+      </ng-template>
+    </md-list>
+  </ng-template>
+</md-card>

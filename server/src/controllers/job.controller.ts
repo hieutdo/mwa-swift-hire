@@ -6,22 +6,6 @@ import * as mongoose from 'mongoose';
 @Authorized()
 export class JobController {
 
-  @Get('/')
-  async findAll() {
-    const jobs = await Job.find({}).populate('createdBy').exec();
-    return jobs.map(job => JSON.parse(JSON.stringify(job)));
-  }
-
-  @Get('/:jobId')
-  async findById(@Param('jobId') jobId: string) {
-    const job = await Job.findById(jobId)
-      .populate('createdBy')
-      .populate('assignee')
-      .populate('waitingList')
-      .exec();
-    return JSON.parse(JSON.stringify(job));
-  }
-
   @Post('/assignee')
   async updateAssignee(@Body() body: any) {
     await Job.findOneAndUpdate({ _id: mongoose.Types.ObjectId(body.jobId) }, {
@@ -80,5 +64,19 @@ export class JobController {
     return result.map(doc => JSON.parse(JSON.stringify(doc)));
   }
 
+  @Get('/:jobId')
+  async findById(@Param('jobId') jobId: string) {
+    const job = await Job.findById(jobId)
+      .populate('createdBy')
+      .populate('assignee')
+      .populate('waitingList')
+      .exec();
+    return JSON.parse(JSON.stringify(job));
+  }
 
+  @Get('/')
+  async findAll() {
+    const jobs = await Job.find({}).populate('createdBy').exec();
+    return jobs.map(job => JSON.parse(JSON.stringify(job)));
+  }
 }
