@@ -7,7 +7,7 @@ import * as mongoose from 'mongoose';
 export class JobController {
 
   @Post('/assignee')
-  async updateAssignee(@Body() body: any) {
+  async updateAssignee( @Body() body: any) {
     await Job.findOneAndUpdate({ _id: mongoose.Types.ObjectId(body.jobId) }, {
       $set: {
         assignee: mongoose.Types.ObjectId(body.assigneeId)
@@ -17,7 +17,7 @@ export class JobController {
   }
 
   @Post('/candidate')
-  async addCandidate(@Body() body: any) {
+  async addCandidate( @Body() body: any) {
     await Job.findOneAndUpdate({ _id: mongoose.Types.ObjectId(body.jobId) }, {
       $addToSet: {
         waitingList: mongoose.Types.ObjectId(body.candidateId)
@@ -27,20 +27,26 @@ export class JobController {
   }
 
   @Get('/getNearestJobs')
-  async findNearestJobs(@QueryParam("longitude") longitude: number, @QueryParam("latitude") latitude: number) {
+  async findNearestJobs( @QueryParam("longitude") longitude: number, @QueryParam("latitude") latitude: number) {
     const location: ICoordinate = { longitude, latitude };
     const result = await Job.findNearestJobs(location, 10);
-    console.log("get nearest job:.........  ",result.map(doc => JSON.parse(JSON.stringify(doc))));
+    console.log("get nearest job:.........  ", result.map(doc => JSON.parse(JSON.stringify(doc))));
     return result.map(doc => JSON.parse(JSON.stringify(doc)));
   }
 
   @Get('/getUserJobs')
-  async findUserJobs(@QueryParam("id") id: string){
-    return Job.find({assignee: mongoose.Types.ObjectId(id)});
+  async findUserJobs( @QueryParam("id") id: string) {
+    return Job.find({ assignee: mongoose.Types.ObjectId(id) });
   }
 
+  @Get('/getMyOffers')
+  async getMyOffers( @QueryParam("userId") userId: string) {
+    const result = await Job.getMyOffers(userId);
+    console.log("My offers log.....", result.map(doc => JSON.parse(JSON.stringify(doc))));
+    return result.map(doc => JSON.parse(JSON.stringify(doc)));
+  }
   @Post('/insertAJob')
-  insertAJob(@Body() job: any) {
+  insertAJob( @Body() job: any) {
     let result = this.saveJob(job);
     console.log("result: ", result);
     return result;
@@ -57,15 +63,10 @@ export class JobController {
     }
   }
 
-  @Get('/getMyOffers')
-  async getMyOffers(@QueryParam("userId") userId: string) {
-    const result =await Job.getMyOffers(userId);
-    console.log(result.map(doc => JSON.parse(JSON.stringify(doc))));
-    return result.map(doc => JSON.parse(JSON.stringify(doc)));
-  }
+
 
   @Get('/:jobId')
-  async findById(@Param('jobId') jobId: string) {
+  async findById( @Param('jobId') jobId: string) {
     const job = await Job.findById(jobId)
       .populate('createdBy')
       .populate('assignee')

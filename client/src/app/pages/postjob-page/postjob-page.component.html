@@ -7,15 +7,8 @@
     <form #postForm="ngForm" (ngSubmit)="onSubmit(postForm)">
       <div layout="row">
         <md-input-container flex>
-          <input mdInput
-                 #nameElement
-                 #nameControl="ngModel"
-                 type="text"
-                 placeholder="Job Name"
-                 ngModel
-                 name="name"
-                 maxlength="20"
-                 required>
+          <input mdInput #nameElement #nameControl="ngModel" type="text" placeholder="Job Name" ngModel name="name" maxlength="20"
+            required>
           <md-hint align="start">
             <span [hidden]="nameControl.pristine || !nameControl.errors?.required" class="tc-red-600">Required</span>
           </md-hint>
@@ -24,72 +17,45 @@
       </div>
       <div layout="row" class="push-top">
         <md-input-container flex>
-              <textarea mdInput
-                        md-autosize
-                        #descriptionControl="ngModel"
-                        ngModel
-                        placeholder="Description"
-                        name="desc"
-                        required>
+          <textarea mdInput md-autosize #descriptionControl="ngModel" ngModel placeholder="Description" name="desc" required>
               </textarea>
           <md-hint align="start">
-            <span [hidden]="descriptionControl.pristine || !descriptionControl.errors?.required"
-                  class="tc-red-600">Required</span>
+            <span [hidden]="descriptionControl.pristine || !descriptionControl.errors?.required" class="tc-red-600">Required</span>
           </md-hint>
         </md-input-container>
       </div>
       <div layout="row" class="push-top">
-        <md-select placeholder="Category"
-                   #categoryControl="ngModel"
-                   ngModel
-                   name="category"
-                   required>
+        <md-select placeholder="Category" #categoryControl="ngModel" ngModel name="category" required>
           <md-option *ngFor="let category of categories" [value]="category.value">
             {{category.viewValue}}
           </md-option>
         </md-select>
         <md-hint align="start">
-          <span [hidden]="categoryControl.pristine || !categoryControl.errors?.required"
-                class="tc-red-600">Required</span>
+          <span [hidden]="categoryControl.pristine || !categoryControl.errors?.required" class="tc-red-600">Required</span>
         </md-hint>
       </div>
       <div layout="row" class="push-top">
         <md-input-container flex>
-          <input mdInput
-                 #durationElement
-                 #durationControl="ngModel"
-                 type="text"
-                 placeholder="Duration Time"
-                 ngModel
-                 name="duration"
-                 required>
+          <input mdInput #durationElement #durationControl="ngModel" type="text" placeholder="Duration Time" ngModel name="duration"
+            required>
           <md-hint align="start">
-            <span [hidden]="durationControl.pristine || !durationControl.errors?.required"
-                  class="tc-red-600">Required</span>
+            <span [hidden]="durationControl.pristine || !durationControl.errors?.required" class="tc-red-600">Required</span>
+            <span *ngIf="durationControl.error?.number" class="tc-red-600">Duration is a number</span>
           </md-hint>
         </md-input-container>
       </div>
       <div layout="row" class="push-top">
         <md-input-container flex>
-          <input mdInput
-                 #feeRateElement
-                 #feeRateControl="ngModel"
-                 type="text"
-                 placeholder="Fee Rate"
-                 ngModel
-                 name="feeRate"
-                 required>
+          <input mdInput #feeRateElement #feeRateControl="ngModel" type="text" placeholder="Fee Rate" ngModel name="feeRate" required>
           <md-hint align="start">
-            <span [hidden]="feeRateControl.pristine || !feeRateControl.errors?.required"
-                  class="tc-red-600">Required</span>
+            <span [hidden]="feeRateControl.pristine || !feeRateControl.errors?.required" class="tc-red-600">Required</span>
+            <span *ngIf="feeRateControl.error?.number" class="tc-red-600">Fee Rate is a number</span>
           </md-hint>
         </md-input-container>
       </div>
       <div layout="row" class="push-top">
         <md-input-container>
-          <input mdInput [mdDatepicker]="pickDate"
-                 ngModel
-                 placeholder="Choose a prefer date" name="preferredDate">
+          <input mdInput [mdDatepicker]="pickDate" ngModel placeholder="Choose a prefer date" name="preferredDate">
           <button mdSuffix [mdDatepickerToggle]="pickDate"></button>
         </md-input-container>
         <md-datepicker #pickDate></md-datepicker>
@@ -97,30 +63,18 @@
       <div layout="row" class="push-top">
         <div layout="row">
           <md-input-container flex>
-            <input mdInput
-                   #preferTimeElement
-                   #preferTimeControl="ngModel"
-                   type="text"
-                   placeholder="Prefer time(hh:mm)"
-                   ngModel
-                   name="preferredTime"
-                   required>
+            <input mdInput #preferTimeElement #preferTimeControl="ngModel" type="text" placeholder="Prefer time(hh:mm)" ngModel name="preferredTime"
+              pattern="hh:mm" required>
             <md-hint align="start">
-                <span [hidden]="preferTimeControl.pristine || !preferTimeControl.errors?.required"
-                      class="tc-red-600">Required</span>
+              <span [hidden]="preferTimeControl.pristine || !preferTimeControl.errors?.required" class="tc-red-600">Required</span>
+              <span *ngIf="preferTimeControl.error?.pattern" class="tc-red-600">Time pattern is hh:mm</span>
             </md-hint>
           </md-input-container>
         </div>
       </div>
       <div layout="row" class="push-top">
         <md-input-container flex>
-          <input mdInput
-                 #stateControl="ngModel"
-                 type="text"
-                 placeholder="State"
-                 ngModel
-                 name="state"
-                 required>
+          <input mdInput #stateControl="ngModel" type="text" placeholder="State" ngModel name="state" required>
           <md-hint align="start">
             <span [hidden]="stateControl.pristine || !stateControl.errors?.required" class="tc-red-600">Required</span>
           </md-hint>
@@ -128,13 +82,7 @@
       </div>
       <div layout="row" class="push-top">
         <md-input-container flex>
-          <input mdInput
-                 #cityControl="ngModel"
-                 type="text"
-                 placeholder="City"
-                 ngModel
-                 name="city"
-                 required>
+          <input mdInput #cityControl="ngModel" type="text" placeholder="City" ngModel name="city" required>
           <md-hint align="start">
             <span [hidden]="cityControl.pristine || !cityControl.errors?.required" class="tc-red-600">Required</span>
           </md-hint>
@@ -142,42 +90,25 @@
       </div>
       <div layout="row" class="push-top">
         <md-input-container flex>
-          <input mdInput
-                 #streetControl="ngModel"
-                 type="text"
-                 placeholder="Street"
-                 ngModel
-                 name="street"
-                 required>
+          <input mdInput #streetControl="ngModel" type="text" placeholder="Street" ngModel name="street" required>
           <md-hint align="start">
-            <span [hidden]="streetControl.pristine || !streetControl.errors?.required"
-                  class="tc-red-600">Required</span>
+            <span [hidden]="streetControl.pristine || !streetControl.errors?.required" class="tc-red-600">Required</span>
           </md-hint>
         </md-input-container>
       </div>
       <div layout="row" class="push-top">
         <md-input-container flex>
-          <input mdInput
-                 #longControl="ngModel"
-                 type="text"
-                 placeholder="Longitude"
-                 ngModel
-                 name="location.longitude"
-                 required>
+          <input mdInput #longControl="ngModel" type="text" placeholder="Longitude" ngModel name="location.longitude" required>
           <md-hint align="start">
             <span [hidden]="longControl.pristine || !longControl.errors?.required" class="tc-red-600">Required</span>
+            <span *ngIf="longControl.error?.number" class="tc-red-600">Duration is a number</span>
           </md-hint>
         </md-input-container>
         <md-input-container flex>
-          <input mdInput
-                 #latControl="ngModel"
-                 type="text"
-                 placeholder="Latitude"
-                 ngModel
-                 name="location.latitude"
-                 required>
+          <input mdInput #latControl="ngModel" type="text" placeholder="Latitude" ngModel name="location.latitude" required>
           <md-hint align="start">
             <span [hidden]="latControl.pristine || !latControl.errors?.required" class="tc-red-600">Required</span>
+            <span *ngIf="latControl.error?.number" class="tc-red-600">Duration is a number</span>
           </md-hint>
         </md-input-container>
       </div>
@@ -190,5 +121,3 @@
   </md-card-actions>
 </md-card>
 
-<!-- #preferDateControl= "ngModel" #preferTimeControl="ngModel"
-#descriptionControl = "ngModel"  -->
