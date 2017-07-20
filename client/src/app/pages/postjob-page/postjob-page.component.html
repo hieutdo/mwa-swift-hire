@@ -185,8 +185,8 @@
   </md-card-content>
   <md-divider></md-divider>
   <md-card-actions>
-    <button md-button [disabled]="!postForm.valid" color="primary" (click)="onSubmit(postForm)">SAVE</button>
-    <button md-button (click)="goBack()">CANCEL</button>
+    <button md-button [disabled]="!postForm.valid" color="primary" (click)="onSubmit(postForm)"><a [routerLink]="['/']" >SAVE</a></button>
+    <button md-button (click)="onReset(postForm)">RESET</button>
   </md-card-actions>
 </md-card>
 

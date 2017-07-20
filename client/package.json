@@ -33,6 +33,7 @@
     "ng2-tag-input": "^1.4.1",
     "ngx-chips": "^1.4.6",
     "rxjs": "^5.1.0",
+    "tag-input": "^2.1.0",
     "zone.js": "^0.8.4"
   },
   "devDependencies": {

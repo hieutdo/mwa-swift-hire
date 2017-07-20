@@ -81,14 +81,14 @@ JobSchema.static('findNearestJobs', (location: ICoordinate, numOfJobs: number = 
   }).limit(numOfJobs);
 });
 
-JobSchema.pre('create', function (next) {
-  const now = new Date();
-  this.modifiedAt = now;
-  if (!this.createdAt) {
-    this.createdAt = now;
-  }
-  next();
-});
+// JobSchema.pre('create', function (next) {
+//   const now = new Date();
+//   this.modifiedAt = now;
+//   if (!this.createdAt) {
+//     this.createdAt = now;
+//   }
+//   next();
+// });
 JobSchema.static('insertAJob', (job: any) => {
   return Job.create(job);
 });
