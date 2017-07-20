@@ -65,8 +65,6 @@ export const JobSchema = new Schema({
   modifiedAt: Date,
 });
 
-
-
 JobSchema.static('findNearestJobs', (location: ICoordinate, numOfJobs: number = 10) => {
   return Job.find({
     location: {
