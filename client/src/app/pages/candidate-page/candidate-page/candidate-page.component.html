@@ -4,11 +4,28 @@
                    placeholder="Search here"
                    showUnderline="true">
     </td-search-box>
-    <button md-raised-button color="primary">Post a Job</button>
+    <button md-raised-button color="primary">Post Job</button>
   </div>
 </md-toolbar>
 <div layout-gt-sm="row" tdMediaToggle="gt-xs" [mediaClasses]="['push-sm']">
   <div flex-gt-sm="70">
+    <div *ngFor ="let job of jobs">
+      <md-card>
+        <md-card-title><img class="img-icon" src="{{job.createdBy.picture}}"/>{{job.name}}</md-card-title>
+        <md-card-subtitle>{{job.category}}</md-card-subtitle>
+        <md-divider></md-divider>
+        <md-card-content>
+          {{job.desc}}
+        </md-card-content>
+        <md-divider></md-divider>
+        <md-card-actions>
+          <a md-button color="accent" class="text-upper" [routerLink]="['/jobs', job._id]">
+            <span>View Detail</span>
+          </a>
+        </md-card-actions>
+      </md-card>
+
+    </div>
     <md-card>
     <md-card-title><i class="material-icons md-48">face</i>Job Title</md-card-title>
     <md-card-subtitle>Oracle</md-card-subtitle>
