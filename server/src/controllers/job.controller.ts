@@ -46,6 +46,7 @@ export class JobController {
   async findNearestJobs(@QueryParam("longitude") longitude: number, @QueryParam("latitude") latitude: number) {
     const location: ICoordinate = { longitude, latitude };
     const result = await Job.findNearestJobs(location, 10);
+    console.log("get nearest job:.........  ",result.map(doc => JSON.parse(JSON.stringify(doc))));
     return result.map(doc => JSON.parse(JSON.stringify(doc)));
   }
 
@@ -75,6 +76,7 @@ export class JobController {
   @Get('/getMyOffers')
   async getMyOffers(@QueryParam("userId") userId: string) {
     const result =await Job.getMyOffers(userId);
+    console.log(result.map(doc => JSON.parse(JSON.stringify(doc))));
     return result.map(doc => JSON.parse(JSON.stringify(doc)));
   }
 
