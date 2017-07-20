@@ -54,6 +54,7 @@ import { MyoffersPageComponent } from './pages/myoffers-page/myoffers-page.compo
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 import { CallbackComponent } from './pages/callback/callback.component';
 import { JobDetailsPageComponent } from './pages/job-details-page/job-details-page.component';
+import { CandidateListComponent } from './candidate-list/candidate-list.component';
 
 import { AuthService } from './auth/auth.service';
 import { AuthGuard } from './guards/auth.guard';
@@ -119,6 +120,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     ProfilePageComponent,
     CallbackComponent,
     JobDetailsPageComponent,
+    CandidateListComponent,
   ],
   imports: [
     BrowserModule,
