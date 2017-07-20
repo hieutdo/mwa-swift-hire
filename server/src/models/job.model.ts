@@ -30,7 +30,7 @@ export interface IJob extends Document {
 export interface IJobModel extends Model<IJob> {
   findNearestJobs(location: ICoordinate, numOfJobs: number): Promise<Array<IJob>>;
   insertAJob(job: any): Promise<IJob>;
-  getMyOffers(username: string): Promise<IJob>;
+  getMyOffers(username: string): Promise<Array<IJob>>;
 }
 
 export const JobSchema = new Schema({
@@ -65,6 +65,8 @@ export const JobSchema = new Schema({
   modifiedAt: Date,
 });
 
+
+
 JobSchema.static('findNearestJobs', (location: ICoordinate, numOfJobs: number = 10) => {
   return Job.find({
     location: {
@@ -79,12 +81,20 @@ JobSchema.static('findNearestJobs', (location: ICoordinate, numOfJobs: number = 
   }).limit(numOfJobs);
 });
 
+JobSchema.pre('create', function (next) {
+  const now = new Date();
+  this.modifiedAt = now;
+  if (!this.createdAt) {
+    this.createdAt = now;
+  }
+  next();
+});
 JobSchema.static('insertAJob', (job: any) => {
   return Job.create(job);
 });
 
-JobSchema.static('getMyOffers', (username: string) => {
-  return Job.find({ "createdBy.name": username });
+JobSchema.static('getMyOffers', (userId: string) => {
+  return Job.find({ "createdBy.name": userId });
 });
 
 export const Job = model<IJob>('Job', JobSchema) as IJobModel;

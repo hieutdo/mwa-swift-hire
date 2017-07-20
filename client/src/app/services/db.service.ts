@@ -7,6 +7,7 @@ import { AuthService } from '../auth/auth.service';
 @Injectable()
 export class DBService {
   categories: any[];
+ 
 
   constructor(private authHttp: AuthHttp, private auth: AuthService) {
     this.categories = [
@@ -19,11 +20,14 @@ export class DBService {
   }
 
   getNearestJobs(longitude: number, latitude: number) {
-    return this.authHttp.get(`${environment.api.baseUrl}/jobs/getNearestJobs?longitude=${longitude}&latitude=${latitude}`);
+   return this.authHttp.get(`${environment.api.baseUrl}/jobs/getNearestJobs?longitude=${longitude}&latitude=${latitude}`)
+    .map((res: Response) => res.json());
+    // .subscribe(data => this.nearestjobs.push(data)) ;
+    // return this.nearestjobs;
   }
 
-  getMyOffers(username: string) {
-    return this.authHttp.get(`${environment.api.baseUrl}/jobs/getMyOffers?username=${username}`)
+  getMyOffers(userId: string) {
+    return this.authHttp.get(`${environment.api.baseUrl}/jobs/getMyOffers?username=${userId}`)
       .map((res: Response) => res.json());
   }
 
