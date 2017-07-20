@@ -62,9 +62,8 @@ export const JobSchema = new Schema({
     ref: 'User'
   },
   createdAt: Date,
-  modifiedAt: Date,
+  modifiedAt: Date
 });
-
 
 
 JobSchema.static('findNearestJobs', (location: ICoordinate, numOfJobs: number = 10) => {
@@ -78,23 +77,48 @@ JobSchema.static('findNearestJobs', (location: ICoordinate, numOfJobs: number = 
         $maxDistance: 5000
       }
     }
-  }).limit(numOfJobs).sort({"preferredDate":-1});
+  }).limit(numOfJobs).sort({ "createdAt": 1 });
 });
 
-// JobSchema.pre('create', function (next) {
-//   const now = new Date();
-//   this.modifiedAt = now;
-//   if (!this.createdAt) {
-//     this.createdAt = now;
+
+// JobSchema.pre('save', function (next) {
+//   const j = new Job();
+//   const now = new Date();  
+//   j.modifiedAt = now;
+//   if (!j.createdAt) {
+//     j.createdAt = now;
 //   }
 //   next();
 // });
 JobSchema.static('insertAJob', (job: any) => {
-  return Job.create(job);
+  //   var update = {
+  //   updatedAt: new Date(),
+  //   $setOnInsert: {
+  //     createdAt: new Date()
+  //   }
+  //   };
+  //   Job.findOneAndUpdate({_id: job._id}, {new: true}, function(err, job){
+  //     if(err){
+  //         console.log("Something wrong when updating data!");
+  //     }
+  //     console.log(doc);
+  // });
+  //Job.create(job);
+
+  JobSchema.pre('save', function (next) {
+    const j = new Job(job);
+    const now = new Date();
+    job.modifiedAt = now;
+    if (!job.createdAt) {
+      job.createdAt = now;
+    }
+    next();
+  });
+  j.save();
 });
 
 JobSchema.static('getMyOffers', (userId: string) => {
-  return Job.find({ "createdBy.name": userId }).sort({"preferredDate":-1});
+  return Job.find({ "createdBy.name": userId }).sort({ "createdAt": 1 });
 });
 
 export const Job = model<IJob>('Job', JobSchema) as IJobModel;
