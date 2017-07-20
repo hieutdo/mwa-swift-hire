@@ -38,15 +38,15 @@
           Dashboard
         </a>
         <h3 md-subheader>For Candidates</h3>
-        <a md-list-item>
+        <a md-list-item [routerLink]="['/candidate']">
           <md-icon md-list-icon>find_in_page</md-icon>
           Browse Jobs
         </a>
-        <a md-list-item>
+        <a md-list-item [routerLink]="['/candidate/jobs']">
           <md-icon md-list-icon>assignment</md-icon>
           My Jobs
         </a>
-        <a md-list-item>
+        <a md-list-item [routerLink]="['/candidate/resume']">
           <md-icon md-list-icon>assignment_ind</md-icon>
           My Resume
         </a>

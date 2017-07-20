@@ -1,0 +1,50 @@
+<md-toolbar>
+  <div layout="row" layout-align="start center" flex>
+    <td-search-box backIcon="arrow_back"
+                   placeholder="Search here"
+                   showUnderline="true">
+    </td-search-box>
+    <button md-raised-button color="primary">Post a Job</button>
+  </div>
+</md-toolbar>
+<div layout-gt-sm="row" tdMediaToggle="gt-xs" [mediaClasses]="['push-sm']">
+  <div flex-gt-sm="70">
+    <md-card>
+    <md-card-title><i class="material-icons md-48">face</i>Job Title</md-card-title>
+    <md-card-subtitle>Oracle</md-card-subtitle>
+    <md-divider></md-divider>
+    <md-card-content>
+      We generally give 2-5 day lab-based trainings to 8-12 person teams of developers. Comfort in front of a group of developers (you'll be the teacher)....
+    </md-card-content>
+    <md-divider></md-divider>
+    <md-card-actions>
+      <a md-button color="accent" class="text-upper" [routerLink]="['/']">
+        <span>View Detail</span>
+      </a>
+    </md-card-actions>
+  </md-card>
+    <md-card>
+      <md-card-title><i class="material-icons md-48">face</i>Javascript Engineer</md-card-title>
+      <md-card-subtitle>We found 10000000000 nearest jobs for you</md-card-subtitle>
+      <md-divider></md-divider>
+      <md-card-content>
+        display jobs here
+      </md-card-content>
+      <md-divider></md-divider>
+      <md-card-actions>
+        <a md-button color="accent" class="text-upper" [routerLink]="['/']">
+          <span>View More</span>
+        </a>
+      </md-card-actions>
+    </md-card>
+  </div>
+  <div flex-gt-sm="30">
+    <md-input-container class="example-full-width">
+      <textarea mdInput placeholder="Location">Farefield</textarea>
+    </md-input-container>
+    <md-input-container class="example-full-width">
+      <textarea mdInput placeholder="Category">Web</textarea>
+    </md-input-container>
+
+  </div>
+</div>

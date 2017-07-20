@@ -1,17 +1,70 @@
 <div layout-gt-sm="row" tdMediaToggle="gt-xs" [mediaClasses]="['push-sm']">
   <div flex-gt-sm="100">
-    <md-card>
-      <md-card-title>Job Details</md-card-title>
-      <md-divider></md-divider>
-      <md-card-content>
-        display jobs here
-      </md-card-content>
-      <md-divider></md-divider>
-      <md-card-actions>
-        <a md-button color="accent" class="text-upper" [routerLink]="['/']">
-          <span>View More</span>
-        </a>
-      </md-card-actions>
-    </md-card>
+    <ng-template tdLoading="jobdetails.load">
+      <md-card *ngIf="jobDetails">
+        <md-card-title>{{ jobDetails.name }}</md-card-title>
+        <md-divider></md-divider>
+        <md-list>
+          <h3 md-subheader>Basic Info</h3>
+          <md-list-item>
+            <md-icon md-list-avatar>description</md-icon>
+            <h4 md-line>{{ jobDetails.desc }}</h4>
+            <p md-line>Description</p>
+          </md-list-item>
+          <md-divider md-inset></md-divider>
+          <md-list-item>
+            <md-icon md-list-avatar>book</md-icon>
+            <h4 md-line>{{ jobDetails.category }}</h4>
+            <p md-line>Category</p>
+          </md-list-item>
+          <md-divider md-inset></md-divider>
+          <md-list-item>
+            <md-icon md-list-avatar>location_city</md-icon>
+            <h4 md-line>{{ jobDetails.street }}, {{ jobDetails.city }}, {{ jobDetails.state }}</h4>
+            <p md-line>Location</p>
+          </md-list-item>
+          <md-divider md-inset></md-divider>
+          <md-list-item>
+            <md-icon md-list-avatar>date_range</md-icon>
+            <h4 md-line>{{ jobDetails.preferredDate | date }} {{ jobDetails.preferredTime }}</h4>
+            <p md-line>Preferred Date</p>
+          </md-list-item>
+          <md-divider md-inset></md-divider>
+          <md-list-item>
+            <md-icon md-list-avatar>schedule</md-icon>
+            <h4 md-line>{{ jobDetails.duration }}</h4>
+            <p md-line>Duration (hours)</p>
+          </md-list-item>
+          <md-divider md-inset></md-divider>
+          <md-list-item>
+            <md-icon md-list-avatar>attach_money</md-icon>
+            <h4 md-line>{{ jobDetails.feeRate }}</h4>
+            <p md-line>Fee Rate (USD)</p>
+          </md-list-item>
+          <md-divider></md-divider>
+          <h3 md-subheader>Employer</h3>
+          <md-list-item>
+            <md-icon md-list-avatar>account_box</md-icon>
+            <h4 md-line>{{ jobDetails.createdBy.name }}</h4>
+            <p md-line>Name</p>
+          </md-list-item>
+          <md-divider md-inset></md-divider>
+          <md-list-item>
+            <md-icon md-list-avatar>account_box</md-icon>
+            <h4 md-line>{{ jobDetails.createdBy.email }}</h4>
+            <p md-line>Email</p>
+          </md-list-item>
+        </md-list>
+        <md-divider></md-divider>
+        <md-card-actions>
+          <button md-button color="accent" class="text-upper" *ngIf="canApply()" (click)="applyJob()">Apply</button>
+          <button md-button color="accent" class="text-upper" *ngIf="isJobOwner()">Edit</button>
+          <td-message sublabel="Congrats! You applied to this job." color="primary" icon="info"
+                      *ngIf="isAssignee()"></td-message>
+          <td-message sublabel="Please be patient! You are in the waiting list." color="accent" icon="info"
+                      *ngIf="isInWaitingList()"></td-message>
+        </md-card-actions>
+      </md-card>
+    </ng-template>
   </div>
 </div>

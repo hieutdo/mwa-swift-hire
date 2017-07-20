@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Http, HttpModule, RequestOptions } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { TagInputModule } from 'ngx-chips';
 import { AuthConfig, AuthHttp } from 'angular2-jwt';
 import {
   MdButtonModule,
@@ -17,6 +19,7 @@ import {
   MdNativeDateModule,
   MdSelectModule,
   MdSidenavModule,
+  MdSliderModule,
   MdSlideToggleModule,
   MdSnackBarModule,
   MdTabsModule,
@@ -28,10 +31,12 @@ import {
   CovalentCommonModule,
   CovalentDataTableModule,
   CovalentDialogsModule,
+  CovalentFileModule,
   CovalentLayoutModule,
   CovalentLoadingModule,
   CovalentMediaModule,
   CovalentMenuModule,
+  CovalentMessageModule,
   CovalentNotificationsModule,
   CovalentPagingModule,
   CovalentSearchModule,
@@ -41,6 +46,9 @@ import {
 import { AppComponent } from './app.component';
 import { MainPageComponent } from './pages/main-page/main-page.component';
 import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.component';
+import { CandidatePageComponent } from './pages/candidate-page/candidate-page/candidate-page.component';
+import { CandidateJobsComponent } from './pages/candidate-page/candidate-jobs/candidate-jobs.component';
+import { CandidateResumeComponent } from './pages/candidate-page/candidate-resume/candidate-resume.component';
 import { PostjobPageComponent } from './pages/postjob-page/postjob-page.component';
 import { MyoffersPageComponent } from './pages/myoffers-page/myoffers-page.component';
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
@@ -51,8 +59,7 @@ import { AuthService } from './auth/auth.service';
 import { AuthGuard } from './guards/auth.guard';
 import { WindowRef } from './services/WindowRef.service';
 import { DBService } from './services/db.service';
-
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { JobService } from './services/job.service';
 
 const routes: Routes = [
   {
@@ -68,6 +75,9 @@ const routes: Routes = [
         path: '',
         component: DashboardPageComponent
       },
+      { path: 'candidate', component: CandidatePageComponent },
+      { path: 'candidate/jobs', component: CandidateJobsComponent },
+      { path: 'candidate/resume', component: CandidateResumeComponent },
       {
         path: 'postjob',
         component: PostjobPageComponent
@@ -99,6 +109,11 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     AppComponent,
     MainPageComponent,
     DashboardPageComponent,
+    CandidatePageComponent,
+    CandidateJobsComponent,
+    CandidateResumeComponent,
+    DashboardPageComponent,
+    DashboardPageComponent,
     PostjobPageComponent,
     MyoffersPageComponent,
     ProfilePageComponent,
@@ -107,6 +122,8 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   ],
   imports: [
     BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
     BrowserAnimationsModule,
     HttpModule,
     RouterModule.forRoot(routes),
@@ -117,6 +134,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     MdListModule,
     MdMenuModule,
     MdTooltipModule,
+    MdSliderModule,
     MdSlideToggleModule,
     MdInputModule,
     MdCheckboxModule,
@@ -138,14 +156,21 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     CovalentStepsModule,
     CovalentCommonModule,
     CovalentDialogsModule,
+    CovalentMessageModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CovalentFileModule,
+    TagInputModule,
+    MdDatepickerModule,
+    MdNativeDateModule,
+    FormsModule,
   ],
   providers: [
     DBService,
     AuthService,
     AuthGuard,
     WindowRef,
+    JobService,
     {
       provide: AuthHttp,
       useFactory: authHttpServiceFactory,

@@ -1,0 +1,110 @@
+<div layout-gt-sm="row" tdMediaToggle="gt-xs" [mediaClasses]="['push-sm']">
+  <div flex-gt-sm="70">
+    <md-card>
+      <md-card-title><i class="material-icons md-48">face</i>Job Title</md-card-title>
+      <md-card-subtitle>Oracle</md-card-subtitle>
+      <md-divider></md-divider>
+      <md-card-content>
+        We generally give 2-5 day lab-based trainings to 8-12 person teams of developers. Comfort in front of a group of developers (you'll be the teacher)....
+      </md-card-content>
+      <md-divider></md-divider>
+      <md-card-actions>
+        <a md-button color="accent" class="text-upper" [routerLink]="['/']">
+          <span>View Detail</span>
+        </a>
+      </md-card-actions>
+    </md-card>
+    <md-card>
+      <md-card-title><i class="material-icons md-48">face</i>Javascript Engineer</md-card-title>
+      <md-card-subtitle>We found 10000000000 nearest jobs for you</md-card-subtitle>
+      <md-divider></md-divider>
+      <md-card-content>
+        display jobs here
+      </md-card-content>
+      <md-divider></md-divider>
+      <md-card-actions>
+        <a md-button color="accent" class="text-upper" [routerLink]="['/']">
+          <span>View More</span>
+        </a>
+      </md-card-actions>
+    </md-card>
+  </div>
+  <div flex-gt-sm="30">
+    <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm.value)">
+    <md-card>
+      <md-card-content>
+        <h2 class="example-h2"></h2>
+        <md-card-content>
+
+          <td-search-input placeholder="Search Job Title"
+                           [showUnderline]="true"
+                           [debounce]="500"
+                           (searchDebounce)="searchInputTerm = $event"
+                           (search)="searchInputTerm = $event"
+                           (clear)="searchInputTerm = ''"
+                           formControlName="searchTitle"
+                           ngDefaultControl>
+          </td-search-input>
+        </md-card-content>
+        <h2 class="example-h2">Job Status</h2>
+        <section class="example-section">
+          <div formGroupName="status">
+          <md-checkbox class="example-margin"
+                       value="cur"
+                       formControlName="coStatus"
+                       ngDefaultControl>Current</md-checkbox>
+          <md-checkbox class="example-margin"
+                       value="com"
+                       formControlName="cuStatus"
+                       ngDefaultControl>Completed</md-checkbox>
+          </div>
+
+        </section>
+      </md-card-content>
+
+      <md-divider></md-divider>
+      <md-card-content>
+        <h2 class="example-h2">Price</h2>
+        <section class="example-section">
+          <md-slider  [disabled]="disabled"
+                      [invert]="invert"
+                      [max]="max"
+                      [min]="min"
+                      [step]="step"
+                      [thumb-label]="thumbLabel"
+                      [tick-interval]="tickInterval"
+                      [value]="sldvalue"
+                      [vertical]="vertical"
+                     ngDefaultControl
+                      #slider></md-slider>
+        </section>
+      </md-card-content>
+      <md-divider></md-divider>
+      <md-card-content>
+        <h2 class="example-h2">Coordinate</h2>
+        <section class="example-section">
+          <p>
+            <md-input-container class="example-full-width" flex>
+              <textarea mdInput placeholder="Latitude"
+                        formControlName="latitude"
+                        ngDefaultControl></textarea>
+            </md-input-container>
+          </p>
+          <p>
+            <md-input-container class="example-full-width">
+              <textarea mdInput
+                        placeholder="Longtitude"
+                        formControlName="longitude"
+                        ngDefaultControl></textarea>
+            </md-input-container>
+          </p>
+        </section>
+      </md-card-content>
+      <md-divider></md-divider>
+    </md-card>
+
+      <button md-raised-button color="primary" type="submit" class="btn btn-primary" [disabled]="!myForm.valid">Search</button>
+
+    </form>
+  </div>
+</div>
