@@ -31,6 +31,8 @@ export class CandidateJobsComponent implements OnInit {
   vertical = false;
   searchInputTerm = "";
 
+  checked = false;
+
 
 
   constructor(private formBuilder: FormBuilder) {
@@ -47,13 +49,25 @@ export class CandidateJobsComponent implements OnInit {
   }
 
   searchJobs(event){
+    console.log(event);
     if (typeof event === "string") {
-        this.jobs.filter(job=>job.name.includes(event)).map(job=>this.sJobs.push(job));
+        this.sJobs = [];
+        this.allJobs.filter(job=>job.name.includes(event)).map(job=>this.sJobs.push(job));
         this.jobs = this.sJobs;
     }
-    console.log(event)
+
+
+    console.log(this.jobs)
 
   }
+
+  searchStatus(event){
+    if(event.source=='MdCheckbox'){
+      let s = event.source.checked?"complete":""
+          this.sJobs.filter(job=>job.status)
+    }
+  }
+
 
   get tickInterval(): number | 'auto' {
     return this.showTicks ? (this.autoTicks ? 'auto' : this._tickInterval) : 0;
