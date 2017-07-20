@@ -35,8 +35,7 @@ export class DBService {
     return this.authHttp.get(`${environment.api.baseUrl}/jobs/getUserJobs?id=${id}`);
   }
 
-  getMyOffers(username: string) {
-    return this.authHttp.get(`${environment.api.baseUrl}/jobs/getMyOffers?username=${username}`)
+  
   getMyOffers(userId: string) {
     return this.authHttp.get(`${environment.api.baseUrl}/jobs/getMyOffers?username=${userId}`)
       .map((res: Response) => res.json());
