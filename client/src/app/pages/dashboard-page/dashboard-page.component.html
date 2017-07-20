@@ -1,47 +1,120 @@
-<md-toolbar>
-  <div layout="row" layout-align="start center" flex>
-    <button md-icon-button tdLayoutManageListOpen [hideWhenOpened]="true">
-      <md-icon>arrow_back</md-icon>
-    </button>
-    <span>Dashboard</span>
-    <span flex></span>
-    <button md-icon-button>
-      <md-icon>settings</md-icon>
-    </button>
-  </div>
-</md-toolbar>
-<div layout-gt-sm="row" tdMediaToggle="gt-xs" [mediaClasses]="['push-sm']">
-  <div flex-gt-sm="100">
-    <md-card>
-      <md-card-title>Job Offers</md-card-title>
-      <md-card-subtitle>We found 10 nearest jobs for you</md-card-subtitle>
-      <md-divider></md-divider>
-      <md-card-content>
-        <div class="md-content" class="inset">
-          <md-divider></md-divider>
-          <md-nav-list class="will-load item-list">
-            <ng-template let-item let-last="last" ngFor [ngForOf]="nearestJobs">
-              <a md-list-item layout-align="row" [routerLink]="['/jobs', item._id]">
-                <h3 md-line>{{item.name}} </h3>
-                <p md-line>{{item.state | truncate:40}} </p>
-                <p md-line>{{item.city | truncate:40}} </p>
-                <p md-line>{{item.street | truncate:40}} </p>
-                <p md-line>{{item.feeRate | truncate:40}} </p>
-                <p md-line>{{item.preferredDate | truncate:40}} </p>
-                <span flex></span>
-                <!-- <span class="md-caption text-right" flex="20"> {{item.createdAt | timeAgo }} </span> -->
-              </a>
-              <md-divider *ngIf="!last" md-inset></md-divider>
-            </ng-template>
-          </md-nav-list>
+<md-card tdMediaToggle="gt-xs" [mediaClasses]="['push']">
+  <md-card-title>
+    POST A JOB
+  </md-card-title>
+  <md-divider></md-divider>
+  <md-card-content class="push-bottom-none">
+    <form #postForm="ngForm" (ngSubmit)="onSubmit(postForm)">
+      <div layout="row">
+        <md-input-container flex>
+          <input mdInput #nameElement #nameControl="ngModel" type="text" placeholder="Job Name" ngModel name="name" maxlength="20"
+            required>
+          <md-hint align="start">
+            <span [hidden]="nameControl.pristine || !nameControl.errors?.required" class="tc-red-600">Required</span>
+          </md-hint>
+          <md-hint align="end">{{nameElement.value.length}} / 20</md-hint>
+        </md-input-container>
+      </div>
+      <div layout="row" class="push-top">
+        <md-input-container flex>
+          <textarea mdInput md-autosize #descriptionControl="ngModel" ngModel placeholder="Description" name="desc" required>
+              </textarea>
+          <md-hint align="start">
+            <span [hidden]="descriptionControl.pristine || !descriptionControl.errors?.required" class="tc-red-600">Required</span>
+          </md-hint>
+        </md-input-container>
+      </div>
+      <div layout="row" class="push-top">
+        <md-select placeholder="Category" #categoryControl="ngModel" ngModel name="category" required>
+          <md-option *ngFor="let category of categories" [value]="category.value">
+            {{category.viewValue}}
+          </md-option>
+        </md-select>
+        <md-hint align="start">
+          <span [hidden]="categoryControl.pristine || !categoryControl.errors?.required" class="tc-red-600">Required</span>
+        </md-hint>
+      </div>
+      <div layout="row" class="push-top">
+        <md-input-container flex>
+          <input mdInput #durationElement #durationControl="ngModel" type="number" placeholder="Duration Time" ngModel name="duration"
+            required>
+          <md-hint align="start">
+            <span [hidden]="durationControl.pristine || !durationControl.errors?.required" class="tc-red-600">Required a number</span>
+          </md-hint>
+        </md-input-container>
+      </div>
+      <div layout="row" class="push-top">
+        <md-input-container flex>
+          <input mdInput #feeRateElement #feeRateControl="ngModel" type="number" placeholder="Fee Rate" ngModel name="feeRate" required>
+          <md-hint align="start">
+            <span [hidden]="feeRateControl.pristine || !feeRateControl.errors?.required" class="tc-red-600">Required</span>
+          </md-hint>
+        </md-input-container>
+      </div>
+      <div layout="row" class="push-top">
+        <md-input-container>
+          <input mdInput [mdDatepicker]="pickDate" ngModel placeholder="Choose a prefer date" name="preferredDate">
+          <button mdSuffix [mdDatepickerToggle]="pickDate"></button>
+        </md-input-container>
+        <md-datepicker #pickDate></md-datepicker>
+      </div>
+      <div layout="row" class="push-top">
+        <div layout="row">
+          <md-input-container flex>
+            <input mdInput #preferTimeElement #preferTimeControl="ngModel" type="time" placeholder="Prefer time" ngModel name="preferredTime"
+              required>
+            <md-hint align="start">
+              <span [hidden]="preferTimeControl.pristine || !preferTimeControl.errors?.required" class="tc-red-600">Required a pattern is hh:mm</span>
+            </md-hint>
+          </md-input-container>
         </div>
-      </md-card-content>
-      <md-divider></md-divider>
-      <md-card-actions>
-        <a md-button color="accent" class="text-upper" [routerLink]="['/jobs/candidate']">
-          <span>View More</span>
-        </a>
-      </md-card-actions>
-    </md-card>
-  </div>
-</div>
+      </div>
+      <div layout="row" class="push-top">
+        <md-input-container flex>
+          <input mdInput #stateControl="ngModel" type="text" placeholder="State" ngModel name="state" required>
+          <md-hint align="start">
+            <span [hidden]="stateControl.pristine || !stateControl.errors?.required" class="tc-red-600">Required</span>
+          </md-hint>
+        </md-input-container>
+      </div>
+      <div layout="row" class="push-top">
+        <md-input-container flex>
+          <input mdInput #cityControl="ngModel" type="text" placeholder="City" ngModel name="city" required>
+          <md-hint align="start">
+            <span [hidden]="cityControl.pristine || !cityControl.errors?.required" class="tc-red-600">Required</span>
+          </md-hint>
+        </md-input-container>
+      </div>
+      <div layout="row" class="push-top">
+        <md-input-container flex>
+          <input mdInput #streetControl="ngModel" type="text" placeholder="Street" ngModel name="street" required>
+          <md-hint align="start">
+            <span [hidden]="streetControl.pristine || !streetControl.errors?.required" class="tc-red-600">Required</span>
+          </md-hint>
+        </md-input-container>
+      </div>
+      <div layout="row" class="push-top">
+        <md-input-container flex>
+          <input mdInput #longControl="ngModel" type="number" placeholder="Longitude" ngModel name="location.longitude" required>
+          <md-hint align="start">
+            <span [hidden]="longControl.pristine || !longControl.errors?.required" class="tc-red-600">Required a number</span>
+          </md-hint>
+        </md-input-container>
+        <md-input-container flex>
+          <input mdInput #latControl="ngModel" type="number" placeholder="Latitude" ngModel name="location.latitude" required>
+          <md-hint align="start">
+            <span [hidden]="latControl.pristine || !latControl.errors?.required" class="tc-red-600">Required a number</span>
+          </md-hint>
+        </md-input-container>
+      </div>
+    </form>
+  </md-card-content>
+  <md-divider></md-divider>
+  <md-card-actions>
+    <button md-button [disabled]="!postForm.valid" color="primary" (click)="onSubmit(postForm)">SAVE</button>
+    <button md-button (click)="onReset(postForm)">CANCEL</button>
+  </md-card-actions>
+</md-card>
+
+<!-- #preferDateControl= "ngModel" #preferTimeControl="ngModel"
+#descriptionControl = "ngModel"  -->

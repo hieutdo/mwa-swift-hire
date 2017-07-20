@@ -24,10 +24,10 @@ export class PostjobPageComponent implements OnInit {
 
   }
 
-
   onReset(postForm: NgForm): void { postForm.resetForm(); }
 
   resetForm(value: any = undefined): void {
-    this.resetForm(value);    
+    this.resetForm(value);
   }
+
 }
