@@ -56,7 +56,7 @@ export class JobController {
     try {
       console.log("Job: ", job);
       let result = await Job.insertAJob(job);
-      return await result.toJSON();
+      return result.toJSON();
     } catch (error) {
       console.log("Error in catch:", error);
       return error;
